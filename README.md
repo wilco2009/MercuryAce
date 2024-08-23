@@ -236,6 +236,17 @@ Adicionalmente, la señal VIDEN indica cuando se está representando el rectangu
  |   0     |   1    |  64-127   |
  |   1     |   0    |  128-191  |
  |   1     |   1    |  192-255  |
+ 
+La secuencia de visualizacion comienza con el contador de pixeles y el contador de lineas a cero, una combinacion de bits del contador de lineas y el contador de pixeles determina la posicion del primer caracter a visualizar en la BGRAM.
+Para ello se direcciona la BGRAM con los bits CNT3,4,5,6,7,12,13,14,15,16 con lo que la obtenemos el código del caracter por los pines D0..D7 del chip.
+
+El código del caracter devuelto por el chip junto con los tres bits inferiores del contador de pixels (CNT0..2) son utilizados para direccionar el chip Z7-8 y obtener el primer scanlinecada scanline con la definicion del caracter que es cargado en el serializador Z28.
+El bit 7 del código del caracter (bit de inverse) es almacenado en Z7B para combinarlo con los bits del scanline a través de Z23D.
+
+A partir de ese momento a cada ciclo de reloj un bit del contenido del serializador sale por el pin 13 del mismo y es invertido o no en Z23D dependiendo del contenido de Z27B y enviado al display.
+Cuando el valor de CNT0..2 vuelve a ser 0 se carga un nuevo codigo de caracter y se carga el primer scanline del siguiente caracter. Dicho proceso se repite enviando al monitor el primer scanline de los primeros 32 caracteres.
+Tras esto se envian pixeles en blanco ................. 
+
 
 ### ACE81 ADDON
 
