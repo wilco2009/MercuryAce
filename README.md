@@ -237,8 +237,13 @@ Adicionalmente, la señal VIDEN indica cuando se está representando el rectangu
  |   1     |   0    |  128-191  |
  |   1     |   1    |  192-255  |
 
+### ACE81 ADDON
+
+
 
 ## PARTLIST
+
+### CLONE
 
  |Part	                               |Value   |Device     |Package    |Description	  |NO ACE81	     |ACE81	 |SJ1 CLOSED |SJ1 OPENED |
  | ------------------------------------| -------| ----------| ----------| ----------------| -------------| ------| ----------| ----------| 
@@ -300,6 +305,16 @@ Adicionalmente, la señal VIDEN indica cuando se está representando el rectangu
  |S2				                   |        |BUTTON     |B3F-31XX   | PUSH BUTTON 90º |      Y       |  Y    |   Y       |   Y       |			
  |S1				                   | DS02   |DIPSWITCH  |DS-02      | ROM SELECTOR    |      Y       |  Y    |   Y       |   Y       |			
 
+### ACE81
+ |Part	                               |Value   |Device     |Package    |Description	  |
+ | ------------------------------------| -------| ----------| ----------| ----------------| 
+ |IC1,IC2,IC5	                       | 74LS283|74XX       |SOP16      |4bit bin. adder  |
+ |IC3,IC4		                       | 74LS08 |74XX       |SOP14      |4xAND gates      |
+
+
+## THE CASE
+
+## REFERENCES
 
 ## ACKNOWLEDGEMENTS
 Richard Altwasser y Steven Vickers
