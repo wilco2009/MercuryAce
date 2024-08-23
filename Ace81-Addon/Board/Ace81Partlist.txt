@@ -1,0 +1,7 @@
+Part     Value          Device     Package  Library  Sheet
+
+IC1      74LS283D       74LS283D   SO16     74xx-eu  1
+IC2      74LS283D       74LS283D   SO16     74xx-eu  1
+IC3      74LS08D        74LS08D    SO14     74xx-eu  1
+IC4      74LS08D        74LS08D    SO14     74xx-eu  1
+IC5      74LS283D       74LS283D   SO16     74xx-eu  1

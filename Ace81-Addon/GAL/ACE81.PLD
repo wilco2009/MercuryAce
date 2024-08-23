@@ -1,0 +1,50 @@
+Name     Ace81 ;
+PartNo   00 ;
+Date     12/05/2022 ;
+Revision 01 ;
+Designer Alejandro Valero Sebastian;
+Company  NA;
+Assembly None ;
+Location  Valencia - Spain;
+Device   g16v8a;
+
+/* *************** INPUT PINS *********************/
+PIN  1  = ACE81_ENABLED             ; /*                                 */ 
+PIN  2  = KM                      ; /*                                 */ 
+PIN  3  = KN                      ; /*                                 */ 
+PIN  4  = KB                      ; /*                                 */ 
+PIN  5  = KC                      ; /*                                 */ 
+PIN  6  = KX                      ; /*                                 */ 
+PIN  7  = KZ                      ; /*                                 */ 
+PIN  8  = ROW1                    ; /*                                 */ 
+PIN  9  = ROW8                    ; /*                                 */ 
+
+/* *************** OUTPUT PINS *********************/
+PIN  14 = KEYB5                   ; /*                                 */ 
+PIN  15 = KEYB4                   ; /*                                 */ 
+PIN  16 = KEYB3                   ; /*                                 */ 
+PIN  17 = KEYB2                   ; /*                                 */ 
+PIN  18 = ROW_SS                  ; /*                                 */ 
+PIN  19 = ROW_V                   ; /*                                 */ 
+
+/** Logic Equations **/
+
+   ZX81 = ACE81_ENABLED;
+   Jupiter = !ACE81_ENABLED;
+   
+   ROW_SS = !((Jupiter & !ROW1) # (ZX81 & !ROW8)); 
+   ROW_V = !((Jupiter & !ROW8) # (ZX81 & !ROW1)); 
+   
+/**
+   KEYB2 = !(Jupiter & !KM # ZX81 & !KZ);
+   KEYB3 = !(Jupiter & (!KN # !KZ) # ZX81 & (!KM # !KX)); 
+   KEYB4 = !(Jupiter & (!KB # !KX) # ZX81 & (!KN # !KC));
+   KEYB5 = !(Jupiter & !KC # ZX81 & !KB);
+**/
+
+   KEYB2 = !(Jupiter & !KM & !ROW8 # ZX81 & !KZ & !ROW1 );
+   KEYB3 = !(Jupiter & (!KN & !ROW8 # !KZ & !ROW1) # ZX81 & (!KM & !ROW8 # !KX & !ROW1)); 
+   KEYB4 = !(Jupiter & (!KB & !ROW8 # !KX & !ROW1) # ZX81 & (!KN & !ROW8 # !KC &!ROW1));
+   KEYB5 = !(Jupiter & !KC & !ROW1 # ZX81 & !KB & !ROW8);
+
+
