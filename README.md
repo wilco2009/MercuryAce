@@ -355,7 +355,7 @@ Los archivos STL ya listos para imprimir están disponibles en la carpeta STL.
 ![Keyset1](images/Keyset1m.png)
 ![Keyset2](images/Keyset2m.png)
 
-![Remaches](images/remaches.png)
+![Remaches](images/remaches_.png)
 ## REFERENCES
 
 ## ACKNOWLEDGEMENTS
