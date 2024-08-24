@@ -9,7 +9,7 @@ An open hardware and open source project
 - Normal (black background) or inverse video (white background) selectable by a jumper
 - composite video output
 - Reset button
-- 4 selectable ROMs
+- 4+4 selectable ROMs
 - Ace81 add-on (Beta)
 
 ## THE CIRCUIT
@@ -339,12 +339,25 @@ Close the SJ2 jumpers with a drop of tin. SJ9
 
 
 ## THE CASE
+La carcasa del clon está basada en un diseño inicial de Cees Meijer, modificado posteriormente por mi para adaptarlo a mi clon.
+La placa del Mercury Ace está diseñada para poder sustituir a la placa del Jupiter Ace original, encajando perfectamente en su carcasa.
+De la misma manera, con la carcasa basada en el modelo de Cees meijer y modificada por mi es capaz de albergar una placa original de Jupiter Ace.
+
+Los archivos STL ya listos para imprimir están disponibles en la carpeta STL.
+
+![Top|800](images/TopCase.png)
+
+![Bottom|800](images/BottomCase.png)
+
+![Keyset1|800](images/Keyset1.png)
+
+![Keyset2|800](images/Keyset2.png)
 
 ## REFERENCES
 
 ## ACKNOWLEDGEMENTS
-Richard Altwasser y Steven Vickers
-Pedro Gimeno
-Paul Andrews
-Cees Meijer
+Richard Altwasser y Steven Vickers por diseñar tan maravillosa máquina
+Pedro Gimeno por su ayuda desinteresada y por el diseño del Ace81 y la ROM modificada
+Paul Andrews (actual propietario de la marca Jupiter Ace) por permitir el desarrollo del clon
+Cees Meijer por facilitarme el diseño inicial de la carcasa
 
