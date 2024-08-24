@@ -229,6 +229,7 @@ La señal FIELD se activa para indicar el final de la visualizacion de un fotogr
 	
 | CONTADOR DE LINEAS                    | CONTADOR HORIZONTAL O DE PIXELES           |   
 | --------------------------------------| -------------------------------------------|
+|                                       |                                            |
 | 17 | 16 | 15 | 14 | 13 | 12 | 10 | 09 | 08 | 07 | 06 | 05 | 04 | 03 | 02 | 01 | 00 |
 | ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---|
 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
@@ -238,6 +239,7 @@ Adicionalmente, la señal VIDEN indica cuando se está representando el rectangu
     VIDEN = !(CNT16*CNT15)*!(CNT17+CNT8)
  
  | CNT16   | CNT15  | Línea     |
+ | --------| -------| ----------|
  |   0     |   0    |  0-63     |
  |   0     |   1    |  64-127   |
  |   1     |   0    |  128-191  |
