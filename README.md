@@ -228,6 +228,7 @@ La señal FIELD se activa para indicar el final de la visualizacion de un fotogr
     FIELD=CNT12*CNT13*CNT14*CNT15*CNT16
 	
 | CONTADOR DE LINEAS                    | CONTADOR HORIZONTAL O DE PIXELES           |   
+| --------------------------------------| -------------------------------------------|
 | 17 | 16 | 15 | 14 | 13 | 12 | 10 | 09 | 08 | 07 | 06 | 05 | 04 | 03 | 02 | 01 | 00 |
 | ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---| ---|
 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
