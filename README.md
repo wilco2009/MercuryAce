@@ -12,64 +12,6 @@ An open hardware and open source project
 - 4 selectable ROMs
 - Ace81 add-on (Beta)
 
-## ASSEMBLY
-
-Components that should not be put in or changed in the JA
-
-- C4 – Do not put
-- U2,R4,R32,R33,R34 – Do not put if SJ1 closes (video option)
-- JP9 – Do not close if the Ace81 board is not in place
-- SJ2-SJ9 – Close if the Ace81 board is not in place
-- R30 & R31 – Do not put on if the Ace81 board is not in place
-- D12.. D17 – install a 0R instead the diodes if the Ace81 board is not on
-
-
-We have the following options when building the board:
-
-Installation of op-amp for video:
-
-The SJ1 bridge is the one that will allow us to select whether to install the op-amp circuit or bypass it.
-
-With the bridge open, the video will pass through the components of the op-amp and therefore we will need to install the following components:
-
--	U2
--	R4
--	R32
--	R33
--	R34
-
-If you decide not to use the op-amp, you must close SJ1 with a drop of tin and not solder the aforementioned components.
-
-Installing the Ace81 add-on module:
-
-The Ace81 Add-On module is a circuit that is currently in Beta. This circuit modifies the Jupiter Ace's hardware to simulate a zx81, modifying the video generation circuit and keyboard order.
-
-In the module we have a selector that will allow us to switch between Jupiter Ace mode and Ace81 mode.
-
-If we want to have this add-on we must install the following components:
-
-- R30, R31, D12, D13, D14, D15, D16, D17 y Z40
-
-The GAL JED file (Z40) is available in the GAL folder.
-
-Additionally, the Add-on board will have to be manufactured and connected on the pins located around the Z5-6 RAM (JP10x, JP15x, JP6 and JP8)
-
-Put JP9 on 1-2 (Keyboard Auto)
-
-![Ace81|800](images/Ace81.jpg)
-
-This mode requires a modified ROM for its proper functioning that is included inside the ROM folder.
-
-The GAL must be welded without a socket as it does not fit inside the housing along with it.
-
-If you do not use the Ace81 mode, you must take into account the following:
-
-Install the following components: R30, R31, D12, D13, D14, D15, D16, D17, and Z40.
-
-Close the JP10x, JP15x, JP6 and JP8 jumpers.
-
-Close the SJ2 jumpers with a drop of tin. SJ9
-
 ## THE CIRCUIT
 
 ### THE MEMORY MAP
@@ -264,6 +206,64 @@ Adicionalmente se genera una interrupcion en el Z80 /INT=0.
 
 ### ACE81 ADDON
 
+
+## ASSEMBLY
+
+Components that should not be put in or changed in the JA
+
+- C4 – Do not put
+- U2,R4,R32,R33,R34 – Do not put if SJ1 closes (video option)
+- JP9 – Do not close if the Ace81 board is not in place
+- SJ2-SJ9 – Close if the Ace81 board is not in place
+- R30 & R31 – Do not put on if the Ace81 board is not in place
+- D12.. D17 – install a 0R instead the diodes if the Ace81 board is not on
+
+
+We have the following options when building the board:
+
+Installation of op-amp for video:
+
+The SJ1 bridge is the one that will allow us to select whether to install the op-amp circuit or bypass it.
+
+With the bridge open, the video will pass through the components of the op-amp and therefore we will need to install the following components:
+
+-	U2
+-	R4
+-	R32
+-	R33
+-	R34
+
+If you decide not to use the op-amp, you must close SJ1 with a drop of tin and not solder the aforementioned components.
+
+Installing the Ace81 add-on module:
+
+The Ace81 Add-On module is a circuit that is currently in Beta. This circuit modifies the Jupiter Ace's hardware to simulate a zx81, modifying the video generation circuit and keyboard order.
+
+In the module we have a selector that will allow us to switch between Jupiter Ace mode and Ace81 mode.
+
+If we want to have this add-on we must install the following components:
+
+- R30, R31, D12, D13, D14, D15, D16, D17 y Z40
+
+The GAL JED file (Z40) is available in the GAL folder.
+
+Additionally, the Add-on board will have to be manufactured and connected on the pins located around the Z5-6 RAM (JP10x, JP15x, JP6 and JP8)
+
+Put JP9 on 1-2 (Keyboard Auto)
+
+![Ace81|800](images/Ace81.jpg)
+
+This mode requires a modified ROM for its proper functioning that is included inside the ROM folder.
+
+The GAL must be welded without a socket as it does not fit inside the housing along with it.
+
+If you do not use the Ace81 mode, you must take into account the following:
+
+Install the following components: R30, R31, D12, D13, D14, D15, D16, D17, and Z40.
+
+Close the JP10x, JP15x, JP6 and JP8 jumpers.
+
+Close the SJ2 jumpers with a drop of tin. SJ9
 
 
 ## PARTLIST
