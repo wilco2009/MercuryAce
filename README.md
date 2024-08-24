@@ -227,7 +227,7 @@ La señal FIELD se activa para indicar el final de la visualizacion de un fotogr
 
     FIELD=CNT12*CNT13*CNT14*CNT15*CNT16
 	
-![counters|800](images/counters.jpg)
+![counters|800](images/counters.png)
 
 
 Adicionalmente, la señal VIDEN indica cuando se está representando el rectangulo que contiene los caracteres, delimitado entre 0 y 255 para el contador horizontal y entre 0 y 191 para el contador de lineas.
