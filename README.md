@@ -356,6 +356,8 @@ Los archivos STL ya listos para imprimir están disponibles en la carpeta STL.
 ![Keyset2](images/Keyset2m.png)
 
 ![Remaches](images/remaches_.png)
+Referencia de los remaches R3100
+
 ## REFERENCES
 
 ## ACKNOWLEDGEMENTS
