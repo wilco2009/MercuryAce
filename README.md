@@ -252,6 +252,8 @@ Cuando el contador horizontal alcanza el valor 416 se pone a cero y comenzamos c
 5) La secuencia anterior (2-4) se repite para el siguiente scanline hasta un total de 8 (CNT9..11=111b) momento en que pasamos a direccionar la siguiente linea en la BGRAM
 
 6) Después de visualizar 32 lineas (contador de lineas=192) pasamos al borde inferior de la pantalla, generando la señal FIELD entre el valor 320 y 351 lo que provoca una señal SYNC y por tanto un nuevo backporch.
+Adicionalmente se genera una interrupcion en el Z80 /INT=0.
+
 
 
 ### ACE81 ADDON
