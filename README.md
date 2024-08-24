@@ -183,7 +183,7 @@ Adicionalmente, la señal VIDEN indica cuando se está representando el rectangu
  |   1     |   0    |  128-191  |
  |   1     |   1    |  192-255  |
  
-![viden](images/viden_.png)
+![viden](images/JupiterAce_screen.png)
  
 La secuencia de visualizacion comienza con el contador de pixeles y el contador de lineas a cero, una combinacion de bits del contador de lineas y el contador de pixeles determina la posicion del primer caracter a visualizar en la BGRAM.
 1) Para ello se direcciona la BGRAM con los bits CNT3,4,5,6,7,12,13,14,15,16 con lo que la obtenemos el código del caracter por los pines D0..D7 del chip.
@@ -201,6 +201,9 @@ Cuando el contador horizontal alcanza el valor 416 se pone a cero y comenzamos c
 
 6) Después de visualizar 32 lineas (contador de lineas=192) pasamos al borde inferior de la pantalla, generando la señal FIELD entre el valor 248 y 255 lo que provoca una nueva señal SYNC de 31 lineas de duracion.
 Adicionalmente se genera una interrupcion en el Z80 /INT=0.
+
+
+![Backporch](images/backporch.jpg)
 
 BACKPORCH = !CNT5*CNT2 desde el último SYNC
 
@@ -352,6 +355,7 @@ Los archivos STL ya listos para imprimir están disponibles en la carpeta STL.
 ![Keyset1](images/Keyset1m.png)
 ![Keyset2](images/Keyset2m.png)
 
+![Remaches](images/remaches.png)
 ## REFERENCES
 
 ## ACKNOWLEDGEMENTS
