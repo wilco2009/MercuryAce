@@ -241,7 +241,7 @@ Adicionalmente, la señal VIDEN indica cuando se está representando el rectangu
  |   1     |   0    |  128-191  |
  |   1     |   1    |  192-255  |
  
- ![viden|800](images/viden.png)
+![viden|800](images/viden.png)
  
 La secuencia de visualizacion comienza con el contador de pixeles y el contador de lineas a cero, una combinacion de bits del contador de lineas y el contador de pixeles determina la posicion del primer caracter a visualizar en la BGRAM.
 1) Para ello se direcciona la BGRAM con los bits CNT3,4,5,6,7,12,13,14,15,16 con lo que la obtenemos el código del caracter por los pines D0..D7 del chip.
