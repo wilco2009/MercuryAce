@@ -208,7 +208,7 @@ Adicionalmente se genera una interrupcion en el Z80 /INT=0.
 
 
 ## ASSEMBLY
-
+![board|800](images/cloneboard.jpg)
 Components that should not be put in or changed in the JA
 
 - C4 – Do not put
