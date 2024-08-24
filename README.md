@@ -347,16 +347,20 @@ La carcasa del clon está basada en un diseño inicial de Cees Meijer, modificad
 La placa del Mercury Ace está diseñada para poder sustituir a la placa del Jupiter Ace original, encajando perfectamente en su carcasa.
 De la misma manera, con la carcasa basada en el modelo de Cees meijer y modificada por mi es capaz de albergar una placa original de Jupiter Ace.
 
-Los archivos STL ya listos para imprimir están disponibles en la carpeta STL.
-
+Los archivos STL ya listos para imprimir están disponibles en la carpeta STL. La carcasa de la fotografía de la portada está impresa en resina 9000x y el resultado es muy bueno.
+La carcasa consta de dos piezas que deben ser impresas en blanco. 
 ![Top](images/TopCasem.png)
 ![Bottom](images/BottomCasem.png)
 
+Necesitaremos tres copias del archivo "keys (without space key).stl" y una copia del archivo "keys (with space key).stl". Con ello conseguiremos las 40 teclas necesarias.
 ![Keyset1](images/Keyset1m.png)
 ![Keyset2](images/Keyset2m.png)
 
 ![Remaches](images/remaches_.png)
-Referencia de los remaches R3100
+Los remaches necesarios son como los de la foto. Debemos buscarlos en las tiendas online como remaches de nylon referencia: R3100.
+
+Las pegatinas de la carcasa las tenemos disponibles en el archivo de Adobe Illustrator "teclado_cuadriculado v2 (1).ai". 
+Deberemos imprimir el archivo en plastico adhesivo trasparente y utilizar una impresora capaz de imprimir con tinta blanca.
 
 ## REFERENCES
 
