@@ -238,14 +238,20 @@ Adicionalmente, la señal VIDEN indica cuando se está representando el rectangu
  |   1     |   1    |  192-255  |
  
 La secuencia de visualizacion comienza con el contador de pixeles y el contador de lineas a cero, una combinacion de bits del contador de lineas y el contador de pixeles determina la posicion del primer caracter a visualizar en la BGRAM.
-Para ello se direcciona la BGRAM con los bits CNT3,4,5,6,7,12,13,14,15,16 con lo que la obtenemos el código del caracter por los pines D0..D7 del chip.
+1) Para ello se direcciona la BGRAM con los bits CNT3,4,5,6,7,12,13,14,15,16 con lo que la obtenemos el código del caracter por los pines D0..D7 del chip.
 
-El código del caracter devuelto por el chip junto con los tres bits inferiores del contador de pixels (CNT0..2) son utilizados para direccionar el chip Z7-8 y obtener el primer scanlinecada scanline con la definicion del caracter que es cargado en el serializador Z28.
-El bit 7 del código del caracter (bit de inverse) es almacenado en Z7B para combinarlo con los bits del scanline a través de Z23D.
+2) El código del caracter devuelto por el chip junto con los tres bits inferiores del contador de lineas (CNT9..11) son utilizados para direccionar el chip Z7-8 y obtener el scanline con la definicion del caracter que es cargado en el serializador Z28.
 
-A partir de ese momento a cada ciclo de reloj un bit del contenido del serializador sale por el pin 13 del mismo y es invertido o no en Z23D dependiendo del contenido de Z27B y enviado al display.
+3) El bit 7 del código del caracter (bit de inverse) es almacenado en Z7B para combinarlo con los bits del scanline a través de Z23D.
+
+4) A partir de ese momento a cada ciclo de reloj un bit del contenido del serializador sale por el pin 13 del mismo y es invertido o no en Z23D dependiendo del contenido de Z27B y enviado al display.
 Cuando el valor de CNT0..2 vuelve a ser 0 se carga un nuevo codigo de caracter y se carga el primer scanline del siguiente caracter. Dicho proceso se repite enviando al monitor el primer scanline de los primeros 32 caracteres.
-Tras esto se envian pixeles en blanco ................. 
+Tras esto se envian los pixeles correspondientes al borde, y desde 320 a 351 (LINE) se genera una señal de SYNC que se traduce en el envio de un backporch al monitor.
+Cuando el contador horizontal alcanza el valor 416 se pone a cero y comenzamos con la linea siguiente y el segundo scanline de cada caracter.
+
+5) La secuencia anterior (2-4) se repite para el siguiente scanline hasta un total de 8 (CNT9..11=111b) momento en que pasamos a direccionar la siguiente linea en la BGRAM
+
+6) Después de visualizar 32 lineas (contador de lineas=192) pasamos al borde inferior de la pantalla, generando la señal FIELD entre el valor 320 y 351 lo que provoca una señal SYNC y por tanto un nuevo backporch.
 
 
 ### ACE81 ADDON
