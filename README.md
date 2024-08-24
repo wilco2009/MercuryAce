@@ -346,13 +346,11 @@ De la misma manera, con la carcasa basada en el modelo de Cees meijer y modifica
 
 Los archivos STL ya listos para imprimir están disponibles en la carpeta STL.
 
-![Top|800](images/TopCase.png)
+![Top](images/TopCasem.png)
+![Bottom](images/BottomCasem.png)
 
-![Bottom|800](images/BottomCase.png)
-
-![Keyset1|800](images/Keyset1.png)
-
-![Keyset2|800](images/Keyset2.png)
+![Keyset1](images/Keyset1m.png)
+![Keyset2](images/Keyset2m.png)
 
 ## REFERENCES
 
