@@ -401,6 +401,8 @@ The case stickers are available in the Adobe Illustrator file "teclado_cuadricul
 
 We must print the file on transparent adhesive plastic and use a printer capable of printing with white ink.
 
+![stickers](images/teclado_cuadriculado_v3.png)
+
 ## REFERENCES
 
 https://en.wikipedia.org/wiki/Jupiter_Cantab

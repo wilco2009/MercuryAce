@@ -402,7 +402,7 @@ Las pegatinas de la carcasa las tenemos disponibles en el archivo de Adobe Illus
 
 Deberemos imprimir el archivo en plastico adhesivo trasparente y utilizar una impresora capaz de imprimir con tinta blanca.
 
-![stickers](images/teclado_cuadriculado v3.png)
+![stickers](images/teclado_cuadriculado_v3.png)
 
 ## REFERENCES
 
