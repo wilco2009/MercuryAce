@@ -399,7 +399,7 @@ The rivets needed are like the ones in the photo. We must look for them in onlin
 
 The case stickers are available in the Adobe Illustrator file "teclado_cuadriculado v2 (1).ai".
 
-We must print the file on transparent adhesive plastic and use a printer capable of printing with white ink.
+We must print the file on transparent adhesive plastic and use a printer capable of printing with white ink. The blue background is for reference only and should not be printed.
 
 ![stickers](images/teclado_cuadriculado_v3.png)
 

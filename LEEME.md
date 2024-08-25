@@ -400,7 +400,7 @@ Los remaches necesarios son como los de la foto. Debemos buscarlos en las tienda
 
 Las pegatinas de la carcasa las tenemos disponibles en el archivo de Adobe Illustrator "teclado_cuadriculado v2 (1).ai". 
 
-Deberemos imprimir el archivo en plastico adhesivo trasparente y utilizar una impresora capaz de imprimir con tinta blanca.
+Deberemos imprimir el archivo en plastico adhesivo trasparente y utilizar una impresora capaz de imprimir con tinta blanca. El fondo azul es solo como referencia y no debe imprimirse.
 
 ![stickers](images/teclado_cuadriculado_v3.png)
 
