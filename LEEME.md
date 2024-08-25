@@ -392,7 +392,7 @@ Para la parte inferior tenemos dos alternativas:
 
 ![Top](images/TopCasem.png)
 ![Bottom](images/BottomCasem.png)
-![BottomROM](images/BottomCasem.png)
+![BottomROM](images/BottomCaseROMSELm.png)
 
 Para las teclas necesitaremos tres copias impresas del archivo "keys (without space key).stl" y una copia del archivo "keys (with space key).stl". Con ello conseguiremos las 40 teclas necesarias.
 
