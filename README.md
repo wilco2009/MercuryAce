@@ -190,16 +190,25 @@ La secuencia de visualizacion comienza con el contador de pixeles y el contador 
 
 2) El código del caracter devuelto por el chip junto con los tres bits inferiores del contador de lineas (CNT9..11) son utilizados para direccionar el chip Z7-8 y obtener el scanline con la definicion del caracter que es cargado en el serializador Z28.
 
-3) El bit 7 del código del caracter (bit de inverse) es almacenado en Z7B para combinarlo con los bits del scanline a través de Z23D.
+3) El bit 7 del código del caracter (bit de inverse) es almacenado en Z27B para combinarlo con los bits del scanline a través de Z23D.
 
 4) A partir de ese momento a cada ciclo de reloj un bit del contenido del serializador sale por el pin 13 del mismo y es invertido o no en Z23D dependiendo del contenido de Z27B y enviado al display.
-Cuando el valor de CNT0..2 vuelve a ser 0 se carga un nuevo codigo de caracter y se carga el primer scanline del siguiente caracter. Dicho proceso se repite enviando al monitor el primer scanline de los primeros 32 caracteres.
-Tras esto se envian los pixeles correspondientes al borde, y desde 320 a 351 (LINE) se genera una señal de SYNC.
-Cuando el contador horizontal alcanza el valor 416 se pone a cero y comenzamos con la linea siguiente y el segundo scanline de cada caracter.
 
-5) La secuencia anterior (2-4) se repite para el siguiente scanline hasta un total de 8 (CNT9..11=111b) momento en que pasamos a direccionar la siguiente linea en la BGRAM
+5) Cuando el valor de CNT0..2 vuelve a ser 0 se carga un nuevo codigo de caracter y se empieza por el primer scanline de dicho caracter. Este proceso se repite enviando al monitor 32 caracteres.
 
-6) Después de visualizar 32 lineas (contador de lineas=192) pasamos al borde inferior de la pantalla, generando la señal FIELD entre el valor 248 y 255 lo que provoca una nueva señal SYNC de 31 lineas de duracion.
+6) Tras esto se envian los pixeles correspondientes al borde derecho.
+
+7) Desde 320 a 351 (LINE) se genera una señal de SYNC (pulso positivo).
+
+8) Entre 352 y 385 generamos la señal de Backporch.
+
+9) Entre 386 y 416 se pinta el borde derecho.
+
+10) El contador se vuelve a poner a 0.
+
+11) La secuencia anterior (2-10) se repite para el siguiente scanline hasta un total de 8 (CNT9..11=111b) momento en que pasamos a direccionar la siguiente linea en la BGRAM
+
+12) Después de visualizar 24 lineas (contador de lineas=192) pasamos al borde inferior de la pantalla, generando la señal FIELD entre el valor 248 y 255 lo que provoca una nueva señal SYNC de 31 lineas de duracion.
 Adicionalmente se genera una interrupcion en el Z80 /INT=0.
 
 
