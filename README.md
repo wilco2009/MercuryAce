@@ -386,7 +386,9 @@ The ready-to-print STL files are available in the STL folder. The case in the co
 The case consists of two pieces that must be printed in white.
 
 For the bottom part we have two alternatives:
+
 - The file "Jupiter ACE (bottom).stl" does not allow access to the DIP Switch of the selector so the aesthetics will be more similar to the original. We can leave the DIPSwitch uninstalled and the clone will boot by selecting the ROM recorded in the lowest part of the chip.
+
 - The file "Jupiter ACE (bottom)(ROM selector).stl", leaves a window to access the DIP Switch.
 
 ![Top](images/TopCasem.png)

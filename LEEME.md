@@ -387,7 +387,9 @@ Los archivos STL ya listos para imprimir están disponibles en la carpeta STL. L
 La carcasa consta de dos piezas que deben ser impresas en blanco. 
 
 Para la parte inferior tenemos dos alternativas:
+
 	- El archivo "Jupiter ACE (bottom).stl" no deja acceso al DIP Switch del selector por lo que la estética será más parecida al original. Podemos dejar sin instalar el DIPSwitch y el clon arrancará seleccionando la ROM grabada en la parte mas baja del chip.
+
 	- El archivo "Jupiter ACE (bottom)(ROM selector).stl, deja una ventana para acceder al DIP Switch.
 
 ![Top](images/TopCasem.png)
