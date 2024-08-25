@@ -8,7 +8,7 @@
 An open hardware and open source project 
 ![Mercury Ace|800](images/clone.jpg)
 
-## FEATURES
+## CARACTERÍSTICAS
 
 - 3KB/19KB bytes de RAM seleccionables mediante un jumper
 - Normal (fondo negro) o video inverso (fondo blanco) seleccionable mediante un jumper
@@ -17,9 +17,9 @@ An open hardware and open source project
 - 4+4 ROMs seleccionables
 - Ace81 add-on (Beta)
 
-## THE CIRCUIT
+## EL CIRCUITO
 
-### THE MEMORY MAP
+### EL MAPA DE MEMORIA
 ![Memory Map|800](images/Memory_map.jpg)
 
 
