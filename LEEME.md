@@ -409,10 +409,10 @@ http://searle.x10host.com/JupiterAce/JupiterAce.html
 
 ## ACKNOWLEDGEMENTS
 
-Richard Altwasser and Steven Vickers for designing such a wonderful machine
+Richard Altwasser y Steven Vickers por diseñar tan maravillosa máquina
 
-Pedro Gimeno for his selfless help and for the design of the Ace81 and the modified ROM
+Pedro Gimeno por su ayuda desinteresada y por el diseño del Ace81 y la ROM modificada
 
-Paul Andrews (current owner of the Jupiter Ace brand) for allowing the development of the clone
+Paul Andrews (actual propietario de la marca Jupiter Ace) por permitir el desarrollo del clon
 
-Cees Meijer for providing me with the initial design of the case
+Cees Meijer por facilitarme el diseño inicial de la carcasa
