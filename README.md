@@ -391,7 +391,7 @@ For the bottom part we have two alternatives:
 
 ![Top](images/TopCasem.png)
 ![Bottom](images/BottomCasem.png)
-![BottomROM](images/BottomCaseROMSELm.png)
+![BottomROM](images/BottomCase ROMSELm.png)
 
 For the keys we will need three printed copies of the file "keys (without space key).stl" and one copy of the file "keys (with space key).stl". This will give us the 40 keys we need.
 
