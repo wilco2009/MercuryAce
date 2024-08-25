@@ -103,7 +103,7 @@ El caso A11:R26.out:/WE1 = 1:1:1 en apariencia direcciona la BGRAM y la CHARRAM 
 
 /WE1 = Z26.11
 
-Laa memoria de caracteres o CHAR RAM ocupa los rangos de direcciones 0x2c00..0x2fff y 0x2800..0x2BFF (mirror), conteniendo un juego de 128 caracteres, lo que representa 128x8=1024 bytes.
+La memoria de caracteres o CHAR RAM ocupa los rangos de direcciones 0x2c00..0x2fff y 0x2800..0x2BFF (mirror), conteniendo un juego de 128 caracteres, lo que representa 128x8=1024 bytes.
 
 La memoria se puede direccionar tanto desde la CPU como desde el circuito de video, pero la CPU solo puede acceder en modo escritura.
 
@@ -120,7 +120,7 @@ Por otro lado el bit 7 del dato del codigo del caracter que viene desde la BGRAM
 
 Los bits 0 a 6 del codigo de caracter provenientes de la BGRAM se cargan en el serializador (Z28) cada vez que los tres bits bajos del contador horizontal están a cero (CNT0..CNT2), y los pixels van saliendo del chip con cada pulso de reloj, combinandose con el bit 7 (inverse) en la puerta Z23D.
 
-### VIDEO RAM ACCESS PRIORITY
+### PRIORIDAD DE ACCESO A LA RAM DE VIDEO
 El circuito implementa un sistema de prioridades que permite dar acceso prioritario a la RAM de video (BGRAM + CHARRAM) a la CPU o al circuito de video.
 
 ![RAM PRIORITY|800](images/RAM_priority.jpg)
@@ -156,7 +156,7 @@ Sin embargo si A10=0 (copia inferior) no activaremos la señal de /VHOLD y por t
 /VHOLD = !VIDEN + !A10 (/VHOLD activo (=0) cuando VIDEN=0 y A10=0)
 
 
-### VIDEO CIRCUIT
+### CIRCUITO DE VIDEO
 
 El circuito de generacion de video se basa en dos contadores de 9 bits generados con los chips Z9, Z10 y Z11:
 
@@ -191,6 +191,7 @@ Adicionalmente, la señal VIDEN indica cuando se está representando el rectangu
 ![viden](images/JupiterAce_screen.png)
  
 La secuencia de visualizacion comienza con el contador de pixeles y el contador de lineas a cero, una combinacion de bits del contador de lineas y el contador de pixeles determina la posicion del primer caracter a visualizar en la BGRAM.
+
 1) Para ello se direcciona la BGRAM con los bits CNT3,4,5,6,7,12,13,14,15,16 con lo que la obtenemos el código del caracter por los pines D0..D7 del chip.
 
 2) El código del caracter devuelto por el chip junto con los tres bits inferiores del contador de lineas (CNT9..11) son utilizados para direccionar el chip Z7-8 y obtener el scanline con la definicion del caracter que es cargado en el serializador Z28.
@@ -227,65 +228,65 @@ BACKPORCH = !CNT5*CNT2 desde el último SYNC
 ### ACE81 ADDON
 
 
-## ASSEMBLY
+## MONTAJE
 ![board|800](images/cloneboard.jpg)
 
-Components that should not be put in or changed in the JA
+Componentes que no deben ser colocados o que deben ser cambiados durante el montaje.
 
-- C4 – Do not put
-- U2,R4,R32,R33,R34 – Do not put if SJ1 closes (video option)
-- JP9 – Do not close if the Ace81 board is not in place
-- SJ2-SJ9 – Close if the Ace81 board is not in place
-- R30 & R31 – Do not put on if the Ace81 board is not in place
-- D12.. D17 – install a 0R instead the diodes if the Ace81 board is not on
+- C4 – No colocar
+- U2, R4, R32, R33, R34 – No colocar si SJ1 está cerrado (opción de video)
+- JP9 – No cerrar si la placa Ace81 no está instalada
+- SJ2-SJ9 – Cerrar si la placa Ace81 no está instalada
+- R30 y R31 – No colocar si la placa Ace81 no está instalada
+- D12.. D17 – Instalar un 0R en lugar de los diodos si la placa Ace81 no está instalada
 
 
-We have the following options when building the board:
+Tenemos las siguientes opciones al ensamblar la placa:
 
-Installation of op-amp for video:
+Instalación del amplificador operacional para video:
 
-The SJ1 bridge is the one that will allow us to select whether to install the op-amp circuit or bypass it.
+El puente SJ1 es el que nos permitirá seleccionar si instalamos el circuito del amplificador operacional o lo omitimos.
 
-With the bridge open, the video will pass through the components of the op-amp and therefore we will need to install the following components:
+Con el puente abierto, el video pasará a través de los componentes del amplificador operacional, por lo tanto, necesitaremos instalar los siguientes componentes:
 
--	U2
--	R4
--	R32
--	R33
--	R34
+- U2
+- R4
+- R32
+- R33
+- R34
 
-If you decide not to use the op-amp, you must close SJ1 with a drop of tin and not solder the aforementioned components.
+Si decides no utilizar el amplificador operacional, debes cerrar SJ1 con una gota de estaño y no soldar los componentes mencionados.
 
-Installing the Ace81 add-on module:
+Instalación del módulo adicional Ace81:
 
-The Ace81 Add-On module is a circuit that is currently in Beta. This circuit modifies the Jupiter Ace's hardware to simulate a zx81, modifying the video generation circuit and keyboard order.
+El módulo adicional Ace81 es un circuito que actualmente está en Beta. Este circuito modifica el hardware del Jupiter Ace para simular un zx81, modificando el circuito de generación de video y el orden del teclado.
 
-In the module we have a selector that will allow us to switch between Jupiter Ace mode and Ace81 mode.
+En el módulo tenemos un selector que nos permitirá cambiar entre el modo Jupiter Ace y el modo Ace81.
 
-If we want to have this add-on we must install the following components:
+Si queremos tener este complemento, debemos instalar los siguientes componentes:
 
 - R30, R31, D12, D13, D14, D15, D16, D17 y Z40
 
-The GAL JED file (Z40) is available in the GAL folder.
+El archivo JED de la GAL (Z40) está disponible en la carpeta GAL.
 
-Additionally, the Add-on board will have to be manufactured and connected on the pins located around the Z5-6 RAM (JP10x, JP15x, JP6 and JP8)
+Además, será necesario fabricar y conectar la placa adicional en los pines ubicados alrededor de la RAM Z5-6 (JP10x, JP15x, JP6 y JP8).
 
-Put JP9 on 1-2 (Keyboard Auto)
+Para usar el Ace81 colocar JP9 en 1-2 (Teclado Automático).
 
 ![Ace81|800](images/Ace81.jpg)
 
-This mode requires a modified ROM for its proper functioning that is included inside the ROM folder.
+Este modo requiere una ROM modificada para su correcto funcionamiento, que está incluida en la carpeta ROM.
 
-The GAL must be welded without a socket as it does not fit inside the housing along with it.
+La GAL debe ser soldada sin un zócalo, ya que no cabe dentro de la carcasa si se utiliza uno.
 
-If you do not use the Ace81 mode, you must take into account the following:
+Si no usas el modo Ace81, debes tener en cuenta lo siguiente:
 
-Install the following components: R30, R31, D12, D13, D14, D15, D16, D17, and Z40.
+No instalar los siguientes componentes: R30, R31, D12, D13, D14, D15, D16, D17 y Z40.
+Puentear D12, D13, D14, D15, D16 y D17.
 
-Close the JP10x, JP15x, JP6 and JP8 jumpers.
+Cierra los puentes JP10x, JP15x, JP6 y JP8.
 
-Close the SJ2 jumpers with a drop of tin. SJ9
-
+Cierra los puentes SJ2 y SJ9 con una gota de estaño.
 
 ## PARTLIST
 
@@ -360,10 +361,13 @@ Close the SJ2 jumpers with a drop of tin. SJ9
 
 ## THE CASE
 La carcasa del clon está basada en un diseño inicial de Cees Meijer, modificado posteriormente por mi para adaptarlo a mi clon.
+
 La placa del Mercury Ace está diseñada para poder sustituir a la placa del Jupiter Ace original, encajando perfectamente en su carcasa.
+
 De la misma manera, he modificado el modelo de Cees meijer para que sea lo más parecido posible a la carcasa original y sea tambien capaz de albergar tanto la placa del clon como una placa original de Jupiter Ace.
 
 Los archivos STL ya listos para imprimir están disponibles en la carpeta STL. La carcasa de la fotografía de la portada está impresa en resina 9000x y estoy muy contento con el resultado.
+
 La carcasa consta de dos piezas que deben ser impresas en blanco. 
 
 ![Top](images/TopCasem.png)
@@ -379,13 +383,17 @@ Para las teclas necesitaremos tres copias impresas del archivo "keys (without sp
 Los remaches necesarios son como los de la foto. Debemos buscarlos en las tiendas online como remaches de nylon referencia R3100 para sujetar la placa a la carcasa y R3065 para los que unen las dos partes de la carcasa.
 
 Las pegatinas de la carcasa las tenemos disponibles en el archivo de Adobe Illustrator "teclado_cuadriculado v2 (1).ai". 
+
 Deberemos imprimir el archivo en plastico adhesivo trasparente y utilizar una impresora capaz de imprimir con tinta blanca.
 
 ## REFERENCES
 
 ## ACKNOWLEDGEMENTS
 Richard Altwasser y Steven Vickers por diseñar tan maravillosa máquina
+
 Pedro Gimeno por su ayuda desinteresada y por el diseño del Ace81 y la ROM modificada
+
 Paul Andrews (actual propietario de la marca Jupiter Ace) por permitir el desarrollo del clon
+
 Cees Meijer por facilitarme el diseño inicial de la carcasa
 

@@ -25,19 +25,18 @@ An open hardware and open source project
 ### WORK RAM
 ![Work RAM SCH|800](images/WRAM_schema.jpg)
 
-La memoria de trabajo es donde se almacenan todos los datos de programa.
+The work memory is where all program data is stored.
 
-En un Jupiter Ace estándar tenemos tan solo 1KB de memoria de trabajo, aunque existen modulos de ampliacion estándar de 16KB que nos permiten tener 17KB de memoria de trabajo.
+In a standard Jupiter Ace, we have only 1KB of working memory, although there are standard 16KB expansion modules that allow us to have 17KB of working memory.
 
-El Mercury Ace dispone de un jumper (J3) que nos permite seleccionar entre 3KB de RAM y 19KB (1KB y 17KB de memoria de trabajo respectivamente)
- 
- - 3KB (1KB Work RAM + 1KB Char RAM + 1KB BG RAM)
- - 19KB (17KB de Work RAM + 1KB Char RAM + 1KB BG RAM)
+The Mercury Ace has a jumper (J3) that allows us to select between 3KB of RAM and 19KB (1KB and 17KB of working memory, respectively):
 
-El chip Z29 es el responsable de generar la señal de habilitacion de la RAM de trabajo que se ubica a aprtir de la direccion 0x3C00, existiendo un 3 copias del primer K de esta memoria a partir de 0x3000.
+- 3KB (1KB Work RAM + 1KB Char RAM + 1KB BG RAM)
+- 19KB (17KB Work RAM + 1KB Char RAM + 1KB BG RAM)
 
+The Z29 chip is responsible for generating the enable signal for the working RAM, which is located starting at address 0x3C00. There are three copies of the first K of this memory starting from 0x3000.
 
-Z29 decodifica A12-A14, y como solo se activa cuando A15 = 0 (G2B), solo se activa en los primeros 32K, y da una salida para cada región en estos rangos:
+Z29 decodes A12-A14, and since it only activates when A15 = 0 (G2B), it is only active in the first 32K, providing an output for each region within these ranges:
 
 - Y0: 0K-4K
 - Y1: 4K-8K
@@ -48,9 +47,9 @@ Z29 decodifica A12-A14, y como solo se activa cuando A15 = 0 (G2B), solo se acti
 - Y6: 24K-28K
 - Y7: 28K-32K
 
-Las puertas Z30C y Z30D sirven para replicar los espejos del primer KB de la memoria de trabajo del circuito original en la zona de memoria 12K-16K. 
+The Z30C and Z30D gates are used to replicate the mirrors of the first KB of the working memory from the original circuit in the 12K-16K memory area.
 
-A14 indica si estamos en la zona 8-16K. Cuando A14 = 0, tienen que repetirse, por tanto se dejan fijos para que siempre se acceda a la misma RAM. 
+A14 indicates if we are in the 8-16K area. When A14 = 0, they need to be repeated, so they are fixed to always access the same RAM.
 
 - 3KB		/CE=!(!A14*A13*A12)
 
@@ -59,9 +58,9 @@ A14 indica si estamos en la zona 8-16K. Cuando A14 = 0, tienen que repetirse, po
 ![Work RAM map|800](images/WorkRAM.jpg)
 
 ### BG RAM
-La memoria de pantalla o BGRAM reside en el chip Z5-6. Como podemos ver en el mapa de memoria, ocupa los rangos de direcciones 0x2400..0x27ff y 0x2000..23ff (mirror). 
+The screen memory or BGRAM resides in the Z5-6 chip. As we can see in the memory map, it occupies the address ranges 0x2400..0x27ff and 0x2000..0x23ff (mirror).
 
-Las ecuaciones lógicas que gobiernan el chip son las siguientes:
+The logical equations that govern the chip are as follows:
 
 Z29.Y2 = not (not A15 and not A14 and A13 and not A12)
 
@@ -70,7 +69,7 @@ R26.OUT = Z16.2Y2 + Z29.Y2
 
 /WE1 = Z26.11
 
-LECTURA
+READING
  | A11  | R26.out | /WE1 | CE(CHR) | CE2(BG)  | OE |
  | -----| --------| -----| --------| ---------| ---|
  |  0   |   0     |  1   |    1    |   0      |  0 |
@@ -78,7 +77,7 @@ LECTURA
  |  1   |   0     |  1   |    0    |   1      |  0 |
  |  1   |   1     |  1   |    0    |   0      |  0 |
 
-ESCRITURA
+WRITTING
  | A11  | R26.out | /WE1 | CE(CHR) | CE2(BG)  | OE |
  | -----| --------|------| --------| ---------| ---|
  |  0   |   0     |  0   |    1    |   0      |  1 |
@@ -86,53 +85,54 @@ ESCRITURA
  |  1   |   0     |  0   |    0    |   1      |  1 |
  |  1   |   1     |  1   |    0    |   0      |  0 |
 
-La memoria de pantalla está configurada como un bloque de 32x24 caracteres lo que representa 768 bytes dejando 254 bytes sin usar al final de dicha memoria.
+The screen memory is configured as a block of 32x24 characters, which represents 768 bytes, leaving 254 bytes unused at the end of this memory.
 
-A este bloque podemos acceder tanto en lectura como en escritura.
+This block can be accessed for both reading and writing.
 
-Al bus de direcciones de este chip se accede desde la CPU a través de los chips Z15 y Z16 y desde el circuito de video a través de las resistencias R11 a R20.
+The address bus of this chip is accessed from the CPU through the Z15 and Z16 chips and from the video circuit through resistors R11 to R20.
 
-El acceso desde la CPU o desde el circuito de video se arbitra con la señal /VHOLD
+Access from the CPU or the video circuit is managed by the /VHOLD signal.
 
-En la tabla de arriba podemos ver la lógica de la activación del chip.
+In the table above, we can see the logic for chip activation.
 
-El caso A11:R26.out:/WE1 = 1:1:1 en apariencia direcciona la BGRAM y la CHARRAM erroneamente cuando el procesador está accediendo a memoria fuera del area de video, pero gracias a las resistencias que hay situadas entre el bus de datos y la BGRAM se da preferencia a la WORKRAM y a la ROM.
+The case A11:R26.out:/WE1 = 1:1:1 appears to incorrectly address the BGRAM and CHARRAM when the processor is accessing memory outside the video area, but thanks to the resistors located between the data bus and the BGRAM, priority is given to the WORKRAM and ROM.
 
 ### CHAR RAM
 
 /WE1 = Z26.11
 
-Laa memoria de caracteres o CHAR RAM ocupa los rangos de direcciones 0x2c00..0x2fff y 0x2800..0x2BFF (mirror), conteniendo un juego de 128 caracteres, lo que representa 128x8=1024 bytes.
+The character memory, or CHAR RAM, occupies the address ranges 0x2c00..0x2fff and 0x2800..0x2BFF (mirror), containing a set of 128 characters, which represents 128x8=1024 bytes.
 
-La memoria se puede direccionar tanto desde la CPU como desde el circuito de video, pero la CPU solo puede acceder en modo escritura.
+The memory can be addressed both from the CPU and the video circuit, but the CPU can only access it in write mode.
 
-El motivo de esto último es que en el momento de la lectura, el bus de direcciones que entra desde Z17 y Z18 está conectado al bus de datos por un array de resistencias de 1KB y la salida que genera el chip también está conectado al mismo bus de datos por otro array de 1KB, debido a lo cual las direcciones se interfieren con los datos de salida generando lecturas erroneas.
-Una idea para poder solucionar esto podría ser que el valor de resistencia del primer array (el de direcciones) fuera mayor que el del segundo array (datos) dando prioridad a este último, pero habría que experimentar y descartar otras consecuencias imprevistas.
+The reason for this is that during reading, the address bus entering from Z17 and Z18 is connected to the data bus through a 1KB resistor array, and the output generated by the chip is also connected to the same data bus through another 1KB array. As a result, the addresses interfere with the output data, generating incorrect readings. 
 
-Cuando se está accediendo a la CHARRAM por parte del circuito de video el bus de direcciones llega por dos vias:
+One possible solution could be to make the resistance value of the first array (address) higher than that of the second array (data), giving priority to the latter. However, this would need to be tested to rule out any unforeseen consequences.
 
-- A4..A9 llegan desde la salida de datos de la BGRAM (D0..D6), que en ese momento contendrá el caracter que se está intentando visualizar.
+When the video circuit is accessing the CHARRAM, the address bus arrives via two paths:
 
-- A0..A3 en el scanline del caracter que se esta visualizando actualmente y llegará desde la parte baja del contador de lineas (CNT9..CNT11).
+- A4..A9 come from the data output of the BGRAM (D0..D6), which at that moment will contain the character being displayed.
 
-Por otro lado el bit 7 del dato del codigo del caracter que viene desde la BGRAM se almacenará en el latch Z27B. Este bit se utilizará para invertir el video en Z23D en caso de que el bit sea 1.
+- A0..A3 correspond to the scanline of the character currently being displayed and will come from the lower part of the line counter (CNT9..CNT11).
 
-Los bits 0 a 6 del codigo de caracter provenientes de la BGRAM se cargan en el serializador (Z28) cada vez que los tres bits bajos del contador horizontal están a cero (CNT0..CNT2), y los pixels van saliendo del chip con cada pulso de reloj, combinandose con el bit 7 (inverse) en la puerta Z23D.
+Additionally, bit 7 of the character code data coming from the BGRAM will be stored in latch Z27B. This bit will be used to invert the video in Z23D if the bit is 1.
+
+Bits 0 to 6 of the character code from the BGRAM are loaded into the serializer (Z28) each time the three lower bits of the horizontal counter are at zero (CNT0..CNT2), and the pixels are output from the chip with each clock pulse, combining with bit 7 (inverse) at the Z23D gate.
 
 ### VIDEO RAM ACCESS PRIORITY
-El circuito implementa un sistema de prioridades que permite dar acceso prioritario a la RAM de video (BGRAM + CHARRAM) a la CPU o al circuito de video.
+The circuit implements a priority system that allows priority access to the video RAM (BGRAM + CHARRAM) to the CPU or the video circuit.
 
 ![RAM PRIORITY|800](images/RAM_priority.jpg)
 
-La memoria de video está duplicada en forma de mirror en dos zonas de memoria dependiendo del valor de A10.
+The video memory is duplicated in the form of a mirror in two memory zones depending on the value of A10.
 
-La prioridad de acceso a la VRAM es distinta dependiendo de si accedemos al bloque principal (A10=1) o a su copia (A10=0).
+The priority of access to the VRAM is different depending on whether we access the main block (A10=1) or its copy (A10=0).
 
-Cuando accedemos a la memoria de video desde la CPU (A14:A13:A12 = 0:1:0)(salida de R26) y /VHOLD=1 Z15 y Z16 dejan pasar la direccion desde el bus.
+When we access the video memory from the CPU (A14:A13:A12 = 0:1:0) (output of R26) and /VHOLD=1 Z15 and Z16 allow the address to pass from the bus.
 
-Si el acceso ocurre siendo /VHOLD=0, el circuito pone a 1 la salida 2Y2 de Z16 aislando las señales del bus de direcciones y permitiendo el acceso desde el circuito de video.
+If the access occurs with /VHOLD=0, the circuit sets the 2Y2 output of Z16 to 1, isolating the signals from the address bus and allowing access from the video circuit.
 
-Una vez puesta a 1 la señal se memoriza y se mantiene en ese estado hasta que /VHOLD sea de nuevo 1 momento en el que volverá a permitir el acceso desde la CPU.
+Once set to 1, the signal is memorized and remains in that state until /VHOLD is 1 again, at which point it will again allow access from the CPU.
 
 Z29.Y2 = (A14:A13:A12 = 0:1:0)
 
@@ -146,37 +146,36 @@ Z29.Y2 = (A14:A13:A12 = 0:1:0)
  
 
 
-Para que /VHOLD sea igual a 0 A10 debe ser igual a 1, que corresponde a la copia superior de la RAM de video.  /VHOLD activa tambien un mecanismo por el que implementa un estado de espera en la CPU a traves de la señal de /WAIT del Z80 para evitar interferencias con el circuito de video.
+For /VHOLD to be equal to 0 A10 must be equal to 1, which corresponds to the upper copy of the video RAM. /VHOLD also activates a mechanism by which it implements a wait state in the CPU through the Z80 /WAIT signal to avoid interference with the video circuit.
 
-Sin embargo si A10=0 (copia inferior) no activaremos la señal de /VHOLD y por tanto podremos consultar la RAM gracias a que las resistencias R11 a R20 le daran prioridad a la CPU, por lo que en este caso interferiremos en la visualizacion pudiendo mostrar basura en la pantalla durante el acceso.
+However, if A10=0 (lower copy) we will not activate the /VHOLD signal and therefore we will be able to consult the RAM thanks to the fact that resistors R11 to R20 will give priority to the CPU, so in this case we will interfere with the display and may show garbage on the screen during access.
 
 /WAIT = /VHOLD + Z29.Y2
 
-/VHOLD = !VIDEN + !A10 (/VHOLD activo (=0) cuando VIDEN=0 y A10=0)
-
+/VHOLD = !VIDEN + !A10 (/VHOLD active (=0) when VIDEN=0 and A10=0)
 
 ### VIDEO CIRCUIT
 
-El circuito de generacion de video se basa en dos contadores de 9 bits generados con los chips Z9, Z10 y Z11:
+The video generation circuit is based on two 9-bit counters generated with the Z9, Z10 and Z11 chips:
 
-El contador de pixeles horizontal corresponde con las señales CNT0..CNT8.
+The horizontal pixel counter corresponds to the CNT0..CNT8 signals.
 
-El contador de líneas corresponde con las señales CNT9..CNT17.
+The line counter corresponds to the CNT9..CNT17 signals.
 
-A partir de los contadores el circuito genera dos señales principales; LINE y FIELD.
+From the counters the circuit generates two main signals; LINE and FIELD.
 
-La señal LINE (Z22.12) se activa para indicar el final de cada linea cuanto el contador horizontal está entre 320 y 351:
+The LINE signal (Z22.12) is activated to indicate the end of each line when the horizontal counter is between 320 and 351:
 
-    LINE= !CNT5*!CNT7*CNT6*CNT8		
-	
-La señal FIELD se activa para indicar el final de la visualizacion de un fotograma cuando el contador de lineas está entre 248 y 255:
+LINE= !CNT5*!CNT7*CNT6*CNT8
+
+The FIELD signal is activated to indicate the end of the display of a frame when the line counter is between 248 and 255:
 
     FIELD=CNT12*CNT13*CNT14*CNT15*CNT16
 	
 ![counters|800](images/counters.png)
 
 
-Adicionalmente, la señal VIDEN indica cuando se está representando el rectangulo que contiene los caracteres, delimitado entre 0 y 255 para el contador horizontal y entre 0 y 191 para el contador de lineas.
+Additionally, the VIDEN signal indicates when the rectangle containing the characters is being represented, delimited between 0 and 255 for the horizontal counter and between 0 and 191 for the line counter.
  
     VIDEN = !(CNT16*CNT15)*!(CNT17+CNT8)
  
@@ -189,34 +188,35 @@ Adicionalmente, la señal VIDEN indica cuando se está representando el rectangu
  
 ![viden](images/JupiterAce_screen.png)
  
-La secuencia de visualizacion comienza con el contador de pixeles y el contador de lineas a cero, una combinacion de bits del contador de lineas y el contador de pixeles determina la posicion del primer caracter a visualizar en la BGRAM.
-1) Para ello se direcciona la BGRAM con los bits CNT3,4,5,6,7,12,13,14,15,16 con lo que la obtenemos el código del caracter por los pines D0..D7 del chip.
+The display sequence starts with the pixel counter and the line counter being set to zero, a combination of bits from the line counter and the pixel counter determines the position of the first character to be displayed in the BGRAM.
 
-2) El código del caracter devuelto por el chip junto con los tres bits inferiores del contador de lineas (CNT9..11) son utilizados para direccionar el chip Z7-8 y obtener el scanline con la definicion del caracter que es cargado en el serializador Z28.
+1) To do this, the BGRAM is addressed with bits CNT3,4,5,6,7,12,13,14,15,16, which gives us the character code through pins D0..D7 of the chip.
 
-3) El bit 7 del código del caracter (bit de inverse) es almacenado en Z27B para combinarlo con los bits del scanline a través de Z23D.
+2) The character code returned by the chip together with the three lower bits of the line counter (CNT9..11) are used to address chip Z7-8 and obtain the scanline with the definition of the character which is loaded into the serializer Z28.
 
-4) A partir de ese momento a cada ciclo de reloj un bit del contenido del serializador sale por el pin 13 del mismo y es invertido o no en Z23D dependiendo del contenido de Z27B y enviado al display.
+3) Bit 7 of the character code (inverse bit) is stored in Z27B to be combined with the scanline bits through Z23D.
 
-5) Cuando el valor de CNT0..2 vuelve a ser 0 se carga un nuevo codigo de caracter y se empieza por el primer scanline de dicho caracter. Este proceso se repite enviando al monitor 32 caracteres.
+4) From that moment on, at each clock cycle, a bit of the serializer content is output through pin 13 of the same and is inverted or not in Z23D depending on the content of Z27B and sent to the display.
 
-6) Tras esto se envian los pixeles correspondientes al borde derecho.
+5) When the value of CNT0..2 is 0 again, a new character code is loaded and the first scanline of said character is started. This process is repeated, sending 32 characters to the monitor.
 
-7) Desde 320 a 351 (LINE) se genera una señal de SYNC (pulso positivo).
+6) After this, the pixels corresponding to the right edge are sent.
 
-8) Entre 352 y 385 generamos la señal de Backporch.
+7) From 320 to 351 (LINE) a SYNC signal (positive pulse) is generated.
 
-9) Entre 386 y 416 se pinta el borde derecho.
+8) Between 352 and 385 we generate the Backporch signal.
 
-10) El contador se vuelve a poner a 0.
+9) Between 386 and 416 the right edge is painted.
 
-11) La secuencia anterior (2-10) se repite para el siguiente scanline hasta un total de 8 (CNT9..11=111b) momento en que pasamos a direccionar la siguiente linea en la BGRAM
+10) The counter is reset to 0.
 
-12) Después de visualizar 24 lineas (contador de lineas=192) pasamos al borde inferior de la pantalla, generando la señal FIELD entre el valor 248 y 255 lo que provoca una nueva señal SYNC. Adicionalmente se genera una interrupcion en el Z80 /INT=0.
+11) The above sequence (2-10) is repeated for the next scanline up to a total of 8 (CNT9..11=111b) at which point we move on to addressing the next line in the BGRAM.
 
-13) Finalmente se genera el borde superior de la pantalla entre 256 y 311.
+12) After displaying 24 lines (line counter=192) we move to the lower edge of the screen, generating the FIELD signal between the value 248 and 255 which causes a new SYNC signal. Additionally, an interrupt is generated in the Z80 /INT=0.
 
-14) cuando el contador de lineas alcanza el valor 312 se pone de nuevo a 0 y comenzamos la visualizacion de un nuevo frame.
+13) Finally, the upper edge of the screen is generated between 256 and 311.
+
+14) When the line counter reaches the value 312 it is reset to 0 again and we begin displaying a new frame.
 
 ![Backporch](images/backporch.jpg)
 
@@ -229,7 +229,7 @@ BACKPORCH = !CNT5*CNT2 desde el último SYNC
 ## ASSEMBLY
 ![board|800](images/cloneboard.jpg)
 
-Components that should not be put in or changed in the JA
+Components that should be changed or should not be put in or changed during the assembly
 
 - C4 – Do not put
 - U2,R4,R32,R33,R34 – Do not put if SJ1 closes (video option)
@@ -261,11 +261,12 @@ The Ace81 Add-On module is a circuit that is currently in Beta. This circuit mod
 
 In the module we have a selector that will allow us to switch between Jupiter Ace mode and Ace81 mode.
 
-If we want to have this add-on we must install the following components:
+If we want to have this add-on we must take in acount the follwing:
 
-- R30, R31, D12, D13, D14, D15, D16, D17 y Z40
+Do not install the following components: R30, R31, D12, D13, D14, D15, D16, D17, and Z40.
+Bridge D12, D13, D14, D15, D16, and D17.
 
-The GAL JED file (Z40) is available in the GAL folder.
+The JED file for the GAL(Z40) is available in the GAL folder.
 
 Additionally, the Add-on board will have to be manufactured and connected on the pins located around the Z5-6 RAM (JP10x, JP15x, JP6 and JP8)
 
@@ -358,33 +359,39 @@ Close the SJ2 jumpers with a drop of tin. SJ9
 
 
 ## THE CASE
-La carcasa del clon está basada en un diseño inicial de Cees Meijer, modificado posteriormente por mi para adaptarlo a mi clon.
-La placa del Mercury Ace está diseñada para poder sustituir a la placa del Jupiter Ace original, encajando perfectamente en su carcasa.
-De la misma manera, he modificado el modelo de Cees meijer para que sea lo más parecido posible a la carcasa original y sea tambien capaz de albergar tanto la placa del clon como una placa original de Jupiter Ace.
+The clone case is based on an initial design by Cees Meijer, later modified by me to fit my clone.
 
-Los archivos STL ya listos para imprimir están disponibles en la carpeta STL. La carcasa de la fotografía de la portada está impresa en resina 9000x y estoy muy contento con el resultado.
-La carcasa consta de dos piezas que deben ser impresas en blanco. 
+The Mercury Ace plate is designed to be able to replace the plate of the original Jupiter Ace, fitting perfectly into its case.
+
+In the same way, I have modified the Cees Meijer model to be as similar as possible to the original case and also be able to house both the clone plate and an original Jupiter Ace plate.
+
+The ready-to-print STL files are available in the STL folder. The case in the cover photo is printed in 9000x resin and I am very happy with the result.
+
+The case consists of two pieces that must be printed in white.
 
 ![Top](images/TopCasem.png)
 ![Bottom](images/BottomCasem.png)
 
-Para las teclas necesitaremos tres copias impresas del archivo "keys (without space key).stl" y una copia del archivo "keys (with space key).stl". Con ello conseguiremos las 40 teclas necesarias.
+For the keys we will need three printed copies of the file "keys (without space key).stl" and one copy of the file "keys (with space key).stl". This will give us the 40 keys we need.
 
 ![Keyset1](images/Keyset1m.png)
 ![Keyset2](images/Keyset2m.png)
 
 ![Remaches](images/remaches_.png)
 
-Los remaches necesarios son como los de la foto. Debemos buscarlos en las tiendas online como remaches de nylon referencia R3100 para sujetar la placa a la carcasa y R3065 para los que unen las dos partes de la carcasa.
+The rivets needed are like the ones in the photo. We must look for them in online stores as nylon rivets reference R3100 to hold the plate to the case and R3065 for those that join the two parts of the case.
 
-Las pegatinas de la carcasa las tenemos disponibles en el archivo de Adobe Illustrator "teclado_cuadriculado v2 (1).ai". 
-Deberemos imprimir el archivo en plastico adhesivo trasparente y utilizar una impresora capaz de imprimir con tinta blanca.
+The case stickers are available in the Adobe Illustrator file "teclado_cuadriculado v2 (1).ai".
 
+We must print the file on transparent adhesive plastic and use a printer capable of printing with white ink.
 ## REFERENCES
 
 ## ACKNOWLEDGEMENTS
 Richard Altwasser y Steven Vickers por diseñar tan maravillosa máquina
+
 Pedro Gimeno por su ayuda desinteresada y por el diseño del Ace81 y la ROM modificada
+
 Paul Andrews (actual propietario de la marca Jupiter Ace) por permitir el desarrollo del clon
+
 Cees Meijer por facilitarme el diseño inicial de la carcasa
 
