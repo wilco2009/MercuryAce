@@ -9,11 +9,11 @@ An open hardware and open source project
 
 ## FEATURES
 
-- 3KB/19KB bytes of RAM selectable by a jumper
-- Normal (black background) or inverse video (white background) selectable by a jumper
-- composite video output
-- Reset button
-- 4+4 selectable ROMs
+- 3KB/19KB bytes de RAM seleccionables mediante un jumper
+- Normal (fondo negro) o video inverso (fondo blanco) seleccionable mediante un jumper
+- Salida de video compuesto
+- Boton de reset
+- 4+4 ROMs seleccionables
 - Ace81 add-on (Beta)
 
 ## THE CIRCUIT
