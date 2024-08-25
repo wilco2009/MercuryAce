@@ -294,6 +294,12 @@ Close the JP10x, JP15x, JP6 and JP8 jumpers.
 
 Close the SJ2 jumpers with a drop of tin. SJ9
 
+The clone allows you to have 4 ROMs in Jupiter Ace mode and 4 ROMs in Ace81 mode, selectable from the DIPSwitch S1.
+
+The addon's mode selector will automatically switch between one block of 4 ROMs or the other, while S1 will allow you to manually select any of the 4 ROMs.
+
+![S1|800](images/ROMs.png)
+
 
 ## PARTLIST
 

@@ -296,6 +296,12 @@ Cierra los puentes JP10x, JP15x, JP6 y JP8.
 
 Cierra los puentes SJ2 y SJ9 con una gota de estaño.
 
+El clon permite disponer de 4 ROMs en modo Jupiter Ace y 4 ROMs en modo Ace81, seleccionables desde el DIPSwitch S1.
+
+El selector de modo del addon cambiará automáticamente entre un bloque de 4 ROMs o el otro, mientras que S1 nos permitirá seleccionar manualmente cualquiera de las 4 ROMs.
+
+![S1|800](images/ROMs.png)
+
 ## PARTLIST
 
 ### CLONE
