@@ -188,13 +188,20 @@ Adicionalmente, la señal VIDEN indica cuando se está representando el rectangu
  
     VIDEN = !(CNT16*CNT15)*!(CNT17+CNT8)
  
- | CNT16   | CNT15  | Línea     |
- | --------| -------| ----------|
- |   0     |   0    |  0-63     |
- |   0     |   1    |  64-127   |
- |   1     |   0    |  128-191  |
- |   1     |   1    |  192-255  |
  
+ |CNT17    | CNT16   | CNT15  | Línea     | Comentario        |
+ | --------| --------| -------| ----------|-------------------|
+ |   0     |   0     |   0    |  0-63     | Parte de VIDEN    |
+ |   0     |   0     |   1    |  64-127   | Parte de VIDEN    |
+ |   1     |   1     |   0    |  128-191  | Parte de VIDEN    |
+ |   1     |   1     |   1    |  192-255  | Parte de VIDEN    |
+ |   1     |   x     |   x    |  192-255  | No parte de VIDEN |
+ 
+ | CNT8 | Pixel  | Comentario        |
+ | -----| -------| ------------------|
+ | 0    | 0-255  | Parte de VIDEN    |
+ | 1    |256-415 | No parte de VIDEN |
+  
 ![viden](images/JupiterAce_screen.png)
  
 La secuencia de visualizacion comienza con el contador de pixeles y el contador de lineas a cero, una combinacion de bits del contador de lineas y el contador de pixeles determina la posicion del primer caracter a visualizar en la BGRAM.

@@ -186,12 +186,18 @@ Additionally, the VIDEN signal indicates when the rectangle containing the chara
  
     VIDEN = !(CNT16*CNT15)*!(CNT17+CNT8)
  
- | CNT16   | CNT15  | Líne      |
- | --------| -------| ----------|
- |   0     |   0    |  0-63     |
- |   0     |   1    |  64-127   |
- |   1     |   0    |  128-191  |
- |   1     |   1    |  192-255  |
+ |CNT17    | CNT16   | CNT15  | Line      | Comment           |
+ | --------| --------| -------| ----------|-------------------|
+ |   0     |   0     |   0    |  0-63     | Part of VIDEN     |
+ |   0     |   0     |   1    |  64-127   | Part of VIDEN     |
+ |   1     |   1     |   0    |  128-191  | Part of VIDEN     |
+ |   1     |   1     |   1    |  192-255  | Part of VIDEN     |
+ |   1     |   x     |   x    |  192-255  | Not part of VIDEN |
+ 
+ | CNT8 | Pixel  | Comment           |
+ | -----| -------| ------------------|
+ | 0    | 0-255  | Part of VIDEN     |
+ | 1    |256-415 | Not part of VIDEN |
  
 ![viden](images/JupiterAce_screen.png)
  
