@@ -302,9 +302,9 @@ El selector de modo del addon cambiará automáticamente entre un bloque de 4 RO
 
 ![S1|800](images/ROMs.png)
 
-## PARTLIST
+## LISTADO DE COMPONENTES
 
-### CLONE
+### CLON
 
  |Part	                               |Value   |Device     |Package    |Description	  |NO ACE81	     |ACE81	 |SJ1 CLOSED |SJ1 OPENED |
  | ------------------------------------| -------| ----------| ----------| ----------------| -------------| ------| ----------| ----------| 
@@ -374,7 +374,7 @@ El selector de modo del addon cambiará automáticamente entre un bloque de 4 RO
  |IC3,IC4		                       | 74LS08 |74XX       |SOP14      |4xAND gates      |
 
 
-## THE CASE
+## LA CARCASA
 
 La carcasa del clon está basada en un diseño inicial de Cees Meijer, modificado posteriormente por mi para adaptarlo a mi clon.
 
@@ -404,7 +404,7 @@ Deberemos imprimir el archivo en plastico adhesivo trasparente y utilizar una im
 
 ![stickers](images/teclado_cuadriculado_v3.png)
 
-## REFERENCES
+## REFERENCIAS
 
 https://en.wikipedia.org/wiki/Jupiter_Cantab
 
@@ -415,7 +415,7 @@ https://hackaday.io/project/165772-recreating-the-jupiter-ace
 http://searle.x10host.com/JupiterAce/JupiterAce.html
 
 
-## ACKNOWLEDGEMENTS
+## AGRADECIMIENTOS
 
 Richard Altwasser y Steven Vickers por diseñar tan maravillosa máquina
 
