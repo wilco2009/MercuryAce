@@ -208,9 +208,11 @@ La secuencia de visualizacion comienza con el contador de pixeles y el contador 
 
 11) La secuencia anterior (2-10) se repite para el siguiente scanline hasta un total de 8 (CNT9..11=111b) momento en que pasamos a direccionar la siguiente linea en la BGRAM
 
-12) Después de visualizar 24 lineas (contador de lineas=192) pasamos al borde inferior de la pantalla, generando la señal FIELD entre el valor 248 y 255 lo que provoca una nueva señal SYNC de 31 lineas de duracion.
-Adicionalmente se genera una interrupcion en el Z80 /INT=0.
+12) Después de visualizar 24 lineas (contador de lineas=192) pasamos al borde inferior de la pantalla, generando la señal FIELD entre el valor 248 y 255 lo que provoca una nueva señal SYNC. Adicionalmente se genera una interrupcion en el Z80 /INT=0.
 
+13) Finalmente se genera el borde superior de la pantalla entre 256 y 311.
+
+14) cuando el contador de lineas alcanza el valor 312 se pone de nuevo a 0 y comenzamos la visualizacion de un nuevo frame.
 
 ![Backporch](images/backporch.jpg)
 
