@@ -1,7 +1,8 @@
-# Mercury Ace - a Jupiter Ace clone
+# Mercury Ace - Un clon de Jupiter Ace
 
 [English version](README.md)
 [Versión en Español](LEEME.md)
+
 
 An open hardware and open source project 
 ![Mercury Ace|800](images/clone.jpg)
