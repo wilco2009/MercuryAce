@@ -5,7 +5,8 @@
 [Versión en Español](LEEME.md)
 
 
-An open hardware and open source project 
+Un proyecto abierto tanto en hardware como en software
+
 ![Mercury Ace|800](images/clone.jpg)
 
 ## CARACTERÍSTICAS
