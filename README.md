@@ -233,7 +233,7 @@ The display sequence starts with the pixel counter and the line counter being se
 
 ![Backporch](images/backporch.jpg)
 
-BACKPORCH = !CNT5*CNT2 desde el último SYNC
+BACKPORCH = !CNT5*CNT2 from the last SYNC
 
 
 ### ACE81 ADDON
