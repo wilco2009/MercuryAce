@@ -19,10 +19,12 @@ An open hardware and open source project
 ## THE CIRCUIT
 
 ### THE MEMORY MAP
+
 ![Memory Map|800](images/Memory_map.jpg)
 
 
 ### WORK RAM
+
 ![Work RAM SCH|800](images/WRAM_schema.jpg)
 
 The work memory is where all program data is stored.
@@ -58,6 +60,7 @@ A14 indicates if we are in the 8-16K area. When A14 = 0, they need to be repeate
 ![Work RAM map|800](images/WorkRAM.jpg)
 
 ### BG RAM
+
 The screen memory or BGRAM resides in the Z5-6 chip. As we can see in the memory map, it occupies the address ranges 0x2400..0x27ff and 0x2000..0x23ff (mirror).
 
 The logical equations that govern the chip are as follows:
@@ -70,6 +73,7 @@ R26.OUT = Z16.2Y2 + Z29.Y2
 /WE1 = Z26.11
 
 READING
+
  | A11  | R26.out | /WE1 | CE(CHR) | CE2(BG)  | OE |
  | -----| --------| -----| --------| ---------| ---|
  |  0   |   0     |  1   |    1    |   0      |  0 |
@@ -78,6 +82,7 @@ READING
  |  1   |   1     |  1   |    0    |   0      |  0 |
 
 WRITTING
+
  | A11  | R26.out | /WE1 | CE(CHR) | CE2(BG)  | OE |
  | -----| --------|------| --------| ---------| ---|
  |  0   |   0     |  0   |    1    |   0      |  1 |
@@ -120,6 +125,7 @@ Additionally, bit 7 of the character code data coming from the BGRAM will be sto
 Bits 0 to 6 of the character code from the BGRAM are loaded into the serializer (Z28) each time the three lower bits of the horizontal counter are at zero (CNT0..CNT2), and the pixels are output from the chip with each clock pulse, combining with bit 7 (inverse) at the Z23D gate.
 
 ### VIDEO RAM ACCESS PRIORITY
+
 The circuit implements a priority system that allows priority access to the video RAM (BGRAM + CHARRAM) to the CPU or the video circuit.
 
 ![RAM PRIORITY|800](images/RAM_priority.jpg)
@@ -227,6 +233,7 @@ BACKPORCH = !CNT5*CNT2 desde el último SYNC
 
 
 ## ASSEMBLY
+
 ![board|800](images/cloneboard.jpg)
 
 Components that should be changed or should not be put in or changed during the assembly
@@ -352,6 +359,7 @@ Close the SJ2 jumpers with a drop of tin. SJ9
  |S1				                   | DS02   |DIPSWITCH  |DS-02      | ROM SELECTOR    |      Y       |  Y    |   Y       |   Y       |			
 
 ### ACE81
+
  |Part	                               |Value   |Device     |Package    |Description	  |
  | ------------------------------------| -------| ----------| ----------| ----------------| 
  |IC1,IC2,IC5	                       | 74LS283|74XX       |SOP16      |4bit bin. adder  |
@@ -359,6 +367,7 @@ Close the SJ2 jumpers with a drop of tin. SJ9
 
 
 ## THE CASE
+
 The clone case is based on an initial design by Cees Meijer, later modified by me to fit my clone.
 
 The Mercury Ace plate is designed to be able to replace the plate of the original Jupiter Ace, fitting perfectly into its case.
@@ -384,9 +393,11 @@ The rivets needed are like the ones in the photo. We must look for them in onlin
 The case stickers are available in the Adobe Illustrator file "teclado_cuadriculado v2 (1).ai".
 
 We must print the file on transparent adhesive plastic and use a printer capable of printing with white ink.
+
 ## REFERENCES
 
 ## ACKNOWLEDGEMENTS
+
 Richard Altwasser y Steven Vickers por diseñar tan maravillosa máquina
 
 Pedro Gimeno por su ayuda desinteresada y por el diseño del Ace81 y la ROM modificada

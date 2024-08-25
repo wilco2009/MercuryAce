@@ -20,10 +20,12 @@ An open hardware and open source project
 ## EL CIRCUITO
 
 ### EL MAPA DE MEMORIA
+
 ![Memory Map|800](images/Memory_map.jpg)
 
 
 ### WORK RAM
+
 ![Work RAM SCH|800](images/WRAM_schema.jpg)
 
 La memoria de trabajo es donde se almacenan todos los datos de programa.
@@ -60,6 +62,7 @@ A14 indica si estamos en la zona 8-16K. Cuando A14 = 0, tienen que repetirse, po
 ![Work RAM map|800](images/WorkRAM.jpg)
 
 ### BG RAM
+
 La memoria de pantalla o BGRAM reside en el chip Z5-6. Como podemos ver en el mapa de memoria, ocupa los rangos de direcciones 0x2400..0x27ff y 0x2000..23ff (mirror). 
 
 Las ecuaciones lógicas que gobiernan el chip son las siguientes:
@@ -72,6 +75,7 @@ R26.OUT = Z16.2Y2 + Z29.Y2
 /WE1 = Z26.11
 
 LECTURA
+
  | A11  | R26.out | /WE1 | CE(CHR) | CE2(BG)  | OE |
  | -----| --------| -----| --------| ---------| ---|
  |  0   |   0     |  1   |    1    |   0      |  0 |
@@ -80,6 +84,7 @@ LECTURA
  |  1   |   1     |  1   |    0    |   0      |  0 |
 
 ESCRITURA
+
  | A11  | R26.out | /WE1 | CE(CHR) | CE2(BG)  | OE |
  | -----| --------|------| --------| ---------| ---|
  |  0   |   0     |  0   |    1    |   0      |  1 |
@@ -121,6 +126,7 @@ Por otro lado el bit 7 del dato del codigo del caracter que viene desde la BGRAM
 Los bits 0 a 6 del codigo de caracter provenientes de la BGRAM se cargan en el serializador (Z28) cada vez que los tres bits bajos del contador horizontal están a cero (CNT0..CNT2), y los pixels van saliendo del chip con cada pulso de reloj, combinandose con el bit 7 (inverse) en la puerta Z23D.
 
 ### PRIORIDAD DE ACCESO A LA RAM DE VIDEO
+
 El circuito implementa un sistema de prioridades que permite dar acceso prioritario a la RAM de video (BGRAM + CHARRAM) a la CPU o al circuito de video.
 
 ![RAM PRIORITY|800](images/RAM_priority.jpg)
@@ -229,6 +235,7 @@ BACKPORCH = !CNT5*CNT2 desde el último SYNC
 
 
 ## MONTAJE
+
 ![board|800](images/cloneboard.jpg)
 
 Componentes que no deben ser colocados o que deben ser cambiados durante el montaje.
@@ -353,6 +360,7 @@ Cierra los puentes SJ2 y SJ9 con una gota de estaño.
  |S1				                   | DS02   |DIPSWITCH  |DS-02      | ROM SELECTOR    |      Y       |  Y    |   Y       |   Y       |			
 
 ### ACE81
+
  |Part	                               |Value   |Device     |Package    |Description	  |
  | ------------------------------------| -------| ----------| ----------| ----------------| 
  |IC1,IC2,IC5	                       | 74LS283|74XX       |SOP16      |4bit bin. adder  |
@@ -360,6 +368,7 @@ Cierra los puentes SJ2 y SJ9 con una gota de estaño.
 
 
 ## THE CASE
+
 La carcasa del clon está basada en un diseño inicial de Cees Meijer, modificado posteriormente por mi para adaptarlo a mi clon.
 
 La placa del Mercury Ace está diseñada para poder sustituir a la placa del Jupiter Ace original, encajando perfectamente en su carcasa.
@@ -389,11 +398,11 @@ Deberemos imprimir el archivo en plastico adhesivo trasparente y utilizar una im
 ## REFERENCES
 
 ## ACKNOWLEDGEMENTS
-Richard Altwasser y Steven Vickers por diseñar tan maravillosa máquina
 
-Pedro Gimeno por su ayuda desinteresada y por el diseño del Ace81 y la ROM modificada
+Richard Altwasser and Steven Vickers for designing such a wonderful machine
 
-Paul Andrews (actual propietario de la marca Jupiter Ace) por permitir el desarrollo del clon
+Pedro Gimeno for his selfless help and for the design of the Ace81 and the modified ROM
 
-Cees Meijer por facilitarme el diseño inicial de la carcasa
+Paul Andrews (current owner of the Jupiter Ace brand) for allowing the development of the clone
 
+Cees Meijer for providing me with the initial design of the case
