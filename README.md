@@ -190,9 +190,9 @@ Additionally, the VIDEN signal indicates when the rectangle containing the chara
  | --------| --------| -------| ----------|-------------------|
  |   0     |   0     |   0    |  0-63     | Part of VIDEN     |
  |   0     |   0     |   1    |  64-127   | Part of VIDEN     |
- |   1     |   1     |   0    |  128-191  | Part of VIDEN     |
- |   1     |   1     |   1    |  192-255  | Part of VIDEN     |
- |   1     |   x     |   x    |  192-255  | Not part of VIDEN |
+ |   0     |   1     |   0    |  128-191  | Part of VIDEN     |
+ |   0     |   1     |   1    |  192-255  | Not Part of VIDEN |
+ |   1     |   x     |   x    |  256-311  | Not part of VIDEN |
  
  | CNT8 | Pixel  | Comment           |
  | -----| -------| ------------------|

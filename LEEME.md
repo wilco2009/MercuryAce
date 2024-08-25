@@ -193,9 +193,9 @@ Adicionalmente, la señal VIDEN indica cuando se está representando el rectangu
  | --------| --------| -------| ----------|-------------------|
  |   0     |   0     |   0    |  0-63     | Parte de VIDEN    |
  |   0     |   0     |   1    |  64-127   | Parte de VIDEN    |
- |   1     |   1     |   0    |  128-191  | Parte de VIDEN    |
- |   1     |   1     |   1    |  192-255  | Parte de VIDEN    |
- |   1     |   x     |   x    |  192-255  | No parte de VIDEN |
+ |   0     |   1     |   0    |  128-191  | Parte de VIDEN    |
+ |   0     |   1     |   1    |  192-255  | No parte de VIDEN |
+ |   1     |   x     |   x    |  256-311  | No parte de VIDEN |
  
  | CNT8 | Pixel  | Comentario        |
  | -----| -------| ------------------|
