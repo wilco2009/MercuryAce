@@ -186,7 +186,7 @@ Additionally, the VIDEN signal indicates when the rectangle containing the chara
  
     VIDEN = !(CNT16*CNT15)*!(CNT17+CNT8)
  
- | CNT16   | CNT15  | Línea     |
+ | CNT16   | CNT15  | Líne      |
  | --------| -------| ----------|
  |   0     |   0    |  0-63     |
  |   0     |   1    |  64-127   |
