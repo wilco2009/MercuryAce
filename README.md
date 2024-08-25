@@ -397,6 +397,14 @@ We must print the file on transparent adhesive plastic and use a printer capable
 
 ## REFERENCES
 
+https://en.wikipedia.org/wiki/Jupiter_Cantab
+
+https://es.wikipedia.org/wiki/Jupiter_Ace
+
+https://hackaday.io/project/165772-recreating-the-jupiter-ace
+
+http://searle.x10host.com/JupiterAce/JupiterAce.html
+
 ## ACKNOWLEDGEMENTS
 
 Richard Altwasser y Steven Vickers por diseñar tan maravillosa máquina
