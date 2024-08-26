@@ -222,7 +222,7 @@ La secuencia de visualizacion comienza con el contador de pixeles y el contador 
 
 8) Entre 352 y 385 generamos la señal de Backporch.
 
-9) Entre 386 y 416 se pinta el borde derecho.
+9) Entre 386 y 415 se pinta el borde derecho.
 
 10) El contador se vuelve a poner a 0.
 

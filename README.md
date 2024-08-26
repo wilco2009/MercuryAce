@@ -219,7 +219,7 @@ The display sequence starts with the pixel counter and the line counter being se
 
 8) Between 352 and 385 we generate the Backporch signal.
 
-9) Between 386 and 416 the right edge is painted.
+9) Between 386 and 415 the right edge is painted.
 
 10) The counter is reset to 0.
 
