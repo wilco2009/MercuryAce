@@ -3547,7 +3547,7 @@
 <rectangle x1="-0.0127" y1="6.3627" x2="25.9969" y2="6.3881" layer="201"/>
 <rectangle x1="-0.0127" y1="6.3881" x2="25.9969" y2="6.4135" layer="201"/>
 <text x="0" y="-0.127" size="0.0508" layer="201" font="vector">C:/Users/aleja/OneDrive/Documentos/Mercury Ace_.bmp</text>
-<text x="0.508" y="92.202" size="0.8128" layer="27" rot="R270" align="center-right">KBD AUTO</text>
+<text x="0.508" y="93.472" size="0.8128" layer="27" rot="R270" align="center-right">OFF</text>
 <text x="0.635" y="85.09" size="1.016" layer="27" rot="R270" align="center-right">ACE81 ON</text>
 <text x="201.041" y="91.186" size="1.778" layer="21">+</text>
 <text x="9.398" y="92.202" size="1.778" layer="21">+</text>
