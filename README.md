@@ -284,7 +284,7 @@ The JED file for the GAL(Z40) is available in the GAL folder.
 
 Additionally, the Add-on board will have to be manufactured and connected on the pins located around the Z5-6 RAM (JP10x, JP15x, JP6 and JP8)
 
-Put JP9 on 1-2 (Keyboard Auto)
+JP9 is an alternate selector on the main board for ACE81 mode, so JP9 and the Addon selector are mutually exclusive, so only one of them should be used, leaving the other one unset.
 
 ![Ace81|800](images/Ace81.jpg)
 
@@ -320,11 +320,12 @@ The addon's mode selector will automatically switch between one block of 4 ROMs 
  |R32                                  | ???    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
  |R33                                  | ???    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
  |R34                                  | ???    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
- |R8,R10,R24,R27,R39,R42               | 10K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
+ |R8,R10,R24,R27,R39                   | 10K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R5                                   | 12K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R3                                   | 500R   |POT        |EU-B25P    | POTENTIOMETER   |	    Y		 |  Y    |   Y       |   Y       |			
  |R4                                   | 1K     |POT        |EU-B25P    | POTENTIOMETER   |	    Y		 |  Y    |   Y       |   Y       |			
  |R1,R6,R11..R23,R100..R107,R200,R207  | 1K     |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
+ |R42                                  | 1K     |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
  |R9                                   | 22K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R7                                   | 33K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R2                                   | 47K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
@@ -394,7 +395,7 @@ The case consists of two pieces that must be printed in white.
 For the bottom part we have two alternatives:
 
 - The file "Jupiter ACE (bottom).stl" does not allow access to the DIP Switch of the selector so the aesthetics will be more similar to the original. We can leave the DIPSwitch uninstalled and the clone will boot by selecting the ROM recorded in the lowest part of the chip.
-- The file "Jupiter ACE (bottom)(ROM selector).stl", leaves a window to access the DIP Switch.
+- The file "Jupiter ACE (bottom)(ROM selector).stl", leaves a window to access the ROM DIP Switch and the Ace81 selector.
 
 ![Top](images/TopCasem.png)
 ![Bottom](images/BottomCasem.png)

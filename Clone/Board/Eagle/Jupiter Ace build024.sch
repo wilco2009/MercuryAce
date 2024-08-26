@@ -29356,7 +29356,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <part name="U$40" library="switch-omron" library_urn="urn:adsk.eagle:library:40469038" deviceset="40-XX-CARBON" device="" package3d_urn="urn:adsk.eagle:package:41369143/6"/>
 <part name="U$41" library="switch-omron" library_urn="urn:adsk.eagle:library:40469038" deviceset="40-XX-CARBON" device="" package3d_urn="urn:adsk.eagle:package:41369143/6"/>
 <part name="U$42" library="switch-omron" library_urn="urn:adsk.eagle:library:40469038" deviceset="40-XX-CARBON" device="" package3d_urn="urn:adsk.eagle:package:41369143/6"/>
-<part name="R42" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/2" value="1KB"/>
+<part name="R42" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/2" value="1K"/>
 </parts>
 <sheets>
 <sheet>
@@ -32593,6 +32593,7 @@ GENERATOR</text>
 <wire x1="92.71" y1="-278.13" x2="96.52" y2="-278.13" width="0.1524" layer="91"/>
 <wire x1="96.52" y1="-278.13" x2="96.52" y2="-271.78" width="0.1524" layer="91"/>
 <junction x="96.52" y="-271.78"/>
+<junction x="25.4" y="-212.09"/>
 </segment>
 <segment>
 <wire x1="-58.42" y1="-190.5" x2="-81.28" y2="-190.5" width="0.1524" layer="91"/>
@@ -34821,6 +34822,7 @@ GENERATOR</text>
 <pinref part="U$5" gate="G$1" pin="1"/>
 <wire x1="92.964" y1="-208.28" x2="88.9" y2="-208.28" width="0.1524" layer="91"/>
 <junction x="88.9" y="-208.28"/>
+<junction x="40.64" y="-208.28"/>
 </segment>
 <segment>
 <pinref part="JP1" gate="A" pin="4"/>
@@ -35094,6 +35096,7 @@ GENERATOR</text>
 <pinref part="U$42" gate="G$1" pin="1"/>
 <wire x1="288.29" y1="-285.75" x2="288.29" y2="-284.48" width="0.1524" layer="91"/>
 <wire x1="288.29" y1="-284.48" x2="283.21" y2="-284.48" width="0.1524" layer="91"/>
+<junction x="283.21" y="-284.48"/>
 </segment>
 <segment>
 <wire x1="198.12" y1="-337.82" x2="187.96" y2="-337.82" width="0.1524" layer="91"/>
@@ -35546,6 +35549,7 @@ GENERATOR</text>
 <wire x1="152.4" y1="-312.42" x2="139.7" y2="-312.42" width="0.1524" layer="91"/>
 <junction x="152.4" y="-312.42"/>
 <junction x="139.7" y="-312.42"/>
+<label x="124.46" y="-297.18" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="Z1-2" gate="G$1" pin="A15"/>
