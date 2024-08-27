@@ -287,8 +287,8 @@
 <wire x1="193.04" y1="64.77" x2="193.04" y2="66.675" width="0.15" layer="27"/>
 <wire x1="193.04" y1="66.675" x2="190.5" y2="66.675" width="0.15" layer="27"/>
 <text x="168.91" y="3.81" size="2.54" layer="27" align="top-center">SHIFT</text>
-<text x="28.448" y="121.793" size="1.27" layer="27" align="top-center">19KB</text>
-<text x="39.4335" y="121.793" size="1.27" layer="27" align="top-center">3KB</text>
+<text x="28.448" y="121.793" size="1.27" layer="27" align="top-center">3KB</text>
+<text x="39.4335" y="121.793" size="1.27" layer="27" align="top-center">19KB</text>
 <text x="206.248" y="98.8695" size="1.016" layer="27" rot="R90" align="top-center">BLACK</text>
 <text x="205.9305" y="86.2965" size="1.016" layer="27" rot="R90" align="top-center">WHITE</text>
 <hole x="4.76" y="3.37" drill="3"/>
