@@ -363,7 +363,6 @@ Cierra los puentes JP10x, JP15x, JP6 y JP8.
 
 Cierra los puentes SJ2 y SJ9 con una gota de estaño.
 
-El clon permite disponer de 4 ROMs en modo Jupiter Ace y 4 ROMs en modo Ace81, seleccionables desde el DIPSwitch S1.
 
 El selector de modo del addon cambiará automáticamente entre un bloque de 4 ROMs o el otro, mientras que S1 nos permitirá seleccionar manualmente cualquiera de las 4 ROMs.
 
@@ -379,9 +378,15 @@ El selector de modo del addon cambiará automáticamente entre un bloque de 4 RO
  |R26,R35                              | 330R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |
  |R26	                               | 300R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R28,R29                              | 680R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
+<<<<<<< Updated upstream
  |R32                                  | 200    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
  |R33                                  | 200    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
  |R34                                  | 75    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
+=======
+ |R32                                  | 200R   |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
+ |R33                                  | 200R   |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
+ |R34                                  | 75R    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
+>>>>>>> Stashed changes
  |R8,R10,R24,R27,R39                   | 10K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R5                                   | 12K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R3                                   | 500R   |POT        |EU-B25P    | POTENTIOMETER   |	    Y		 |  Y    |   Y       |   Y       |			
@@ -433,7 +438,7 @@ El selector de modo del addon cambiará automáticamente entre un bloque de 4 RO
  |U2                                   | MAX4390|           |SOT95P280  | op-amp          |              |       |   Y       |   N       |			
  |EAR,MIC,POWER	JACK                   | 3.5mm  |CONNECTOR  |PJ302M     | FEM. 3.5mm JACK |      Y       |  Y    |   Y       |   Y       |			
  |S2				                   |        |BUTTON     |B3F-31XX   | PUSH BUTTON 90º |      Y       |  Y    |   Y       |   Y       |			
- |S1				                   | DS02   |DIPSWITCH  |DS-02      | ROM SELECTOR    |      Y       |  Y    |   Y       |   Y       |			
+ |S1				                   | DS02   |DIPSWITCH  |DS-03      | ROM SELECTOR    |      Y       |  Y    |   Y       |   Y       |			
 
 ### ACE81
 
