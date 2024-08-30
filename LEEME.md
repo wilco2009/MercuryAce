@@ -238,6 +238,16 @@ La secuencia de visualizacion comienza con el contador de pixeles y el contador 
 
 BACKPORCH = !CNT5*CNT2 desde el último SYNC
 
+### EL TECLADO
+El teclado consiste en una matriz de 40 teclas (5 filas x 8 columnas) dividida lógicamente en 8 semifilas de 5 columnas por semifila.
+No sé si fue por una reordenacion posterior al diseño, pero el caso es que en el teclado del JA hay algunas teclas en las que no se corresponde su posicion física con la de su conexion lógica.
+Concretamente el "SYMBOL SHIFT" tiene su conexion lógica en la segunda posicion de la semifila 0, junto al "SHIFT", sin embargo físicamente está situado justo antes de la tecla "SPACE" en la última semifila.
+
+![board|800](images/keyboard1.png)
+
+El puerto del teclado se decodifica con las puertas Z26B y Z26C lo que proporciona una decodificacion parcial del puerto 0xFE en lectura.
+El chip Z14 que es un buffer triestado es el que controla el flujo de datos desde el teclado al bus de datos cuando se consulta el puerto 0xFE.
+
 
 ### ACE81 ADDON
 
