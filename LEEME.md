@@ -251,6 +251,56 @@ El chip Z14 que es un buffer triestado es el que controla el flujo de datos desd
 
 ### ACE81 ADDON
 
+¿qué es el ACE81 ADDON?
+El ACE81 es un pqueño módulo que se pincha sobre la BGRAM y modifica ligeramente el hardware de control de la visualizacion para que sea capaz de gestionar un display como el de un ZX81.
+El ZX81 hace un uso extensivo del procesador para generar el video, hasta tal punto que cerca de dos tercios del tiempo del procesador los usa para este fin.
+El JA es una máquina muy parecida al ZX81 en muchos aspectos, pero con hardware de generacion de video, lo que hace que los 3.2MHz a los que funciona estén totalmente disponibles para nuestro programa.
+La idea (y el diseño) del ACE81 surgió por parte Pedro Gimeno como un ejercicio de como hubiera sido un zx81 si, al igual que el JA, hubiera tenido un hardware dedicado para generar el video. 
+Evidentemente hubiera sido una máquina mucho más rápida (o menos lenta, dependiendo de como lo queramos enfocar).
+La idea al final es hacer funcionar una ROM de ZX81 en un JA, con las minimas modificaciones en dicha ROM para eliminar la parte de generacion de video.
+Comparando la memoria de video del ZX81 y del JA nos damos cuenta que su disposicion es prácticamente igual:
+
+Similitudes
+- Ambos tienen 32x24 caracteres
+- Ambos son en blanco y negro
+- En ambos casos el bit 7 del codigo de caracter es "inverse video"
+
+Diferencias
+- El juego de caracteres del JA es de 128 elementos, mientras que en el ZX81 es de solo 64 debido a que el bit 6=1 sirve al firmware para detectar el fin de linea.
+- En ZX81 cada linea está terminada en un HALT (cod=76h) (33x23=759 bytes) mientras que en JA no hay terminador de línea (736 bytes)
+
+Partiendo de estas premisas la idea del Ace81 es hacer que la estructura de la memoria de video sea igual a la del zx81 cuando tenemos activado el modo ZX81 (33 bytes por línea), manteniendo la estructura estándar (32 bytes por linea) cuando está seleccionado el modo JA.
+
+Aparte de las diferencias en el display, existe una pequeña diferencia en la distribución del teclado que obliga a modificar la circuiteria de este para mantener el orden fisico de las teclas.
+
+Físicamente la disposicion de las teclas del ZX81 es identica a la del JA, sin embargo a diferencia del JA, en el ZX81 coincide la disposicion física con la lógica, lo que dificulta la compatibilidad a la hora de utilizar un teclado de JA con la ROM del ZX81.
+Para sortear dicho problema hay que modificar el conexionado del teclado y añadir alguna lógica adicional que hemos decidido incluir en una GAL para facilitar el diseño.
+
+Como he comentado antes los cambios se limitan a las dos semifilas de abajo (semifila 0 y semifila 7)
+
+| Semifila| ZX81           | Jupiter Ace     |
+|---------|----------------|-----------------|
+|    0    |SHIFT   Z  X C V| SHIFT SYMB Z X C|
+|    7    |SPACE SYMB N M B| SPACE  N   M B V|
+
+Pero ese pequeño cambio y hacer que ambos modos sean seleccionables, implica modificaciones importantes en la lógica de conexion del teclado, ya que cambia por completo la estructura de las semifilas 0 y 7.
+
+Las ecuaciones que controlan ambos modos son las siguientes:
+
+```
+/** Logic Equations **/
+
+   ZX81 = ACE81_ENABLED;
+   Jupiter = !ACE81_ENABLED;
+   
+   ROW_SS = !((Jupiter & !ROW1) # (ZX81 & !ROW8)); 
+   ROW_V = !((Jupiter & !ROW8) # (ZX81 & !ROW1)); 
+   
+   KEYB2 = !(Jupiter & !KM & !ROW8 # ZX81 & !KZ & !ROW1 );
+   KEYB3 = !(Jupiter & (!KN & !ROW8 # !KZ & !ROW1) # ZX81 & (!KM & !ROW8 # !KX & !ROW1)); 
+   KEYB4 = !(Jupiter & (!KB & !ROW8 # !KX & !ROW1) # ZX81 & (!KN & !ROW8 # !KC &!ROW1));
+   KEYB5 = !(Jupiter & !KC & !ROW1 # ZX81 & !KB & !ROW8);
+```
 
 ## MONTAJE
 
