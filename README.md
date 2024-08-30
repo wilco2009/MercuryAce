@@ -317,9 +317,9 @@ The addon's mode selector will automatically switch between one block of 4 ROMs 
  |R26,R35                              | 330R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |
  |R26	                               | 300R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R28,R29                              | 680R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
- |R32                                  | ???    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
- |R33                                  | ???    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
- |R34                                  | ???    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
+ |R32                                  | 200    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
+ |R33                                  | 200    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
+ |R34                                  | 75    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
  |R8,R10,R24,R27,R39                   | 10K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R5                                   | 12K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R3                                   | 500R   |POT        |EU-B25P    | POTENTIOMETER   |	    Y		 |  Y    |   Y       |   Y       |			
