@@ -278,10 +278,10 @@ Para sortear dicho problema hay que modificar el conexionado del teclado y añad
 
 Como he comentado antes los cambios se limitan a las dos semifilas de abajo (semifila 0 y semifila 7)
 
-| Semifila| ZX81		   | Jupiter Ace						 |
-|---------|----------------|-------------------------------------|
-|    0    | "SHIFT Z    X C V"| SHIFT	SYMB	Z	X	C|
-|    7    | "SPACE SYMB	N M B"| SPACE	N		M	B	V|
+| Semifila| ZX81		      | Jupiter Ace	    |
+|---------|-------------------|-----------------|
+|    0    | SHIFT   Z   X C V | SHIFT SYMB Z X C|
+|    7    | SPACE SYMB	N M B | SPACE  N   M B V|
 
 Pero ese pequeño cambio y hacer que ambos modos sean seleccionables, implica modificaciones importantes en la lógica de conexion del teclado, ya que cambia por completo la estructura de las semifilas 0 y 7.
 
