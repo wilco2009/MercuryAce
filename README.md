@@ -237,6 +237,57 @@ BACKPORCH = !CNT5*CNT2 from the last SYNC
 
 
 ### ACE81 ADDON
+What is the ACE81 ADDON?
+The ACE81 is a small module that plugs over the BGRAM and slightly modifies the display control hardware so that it is capable of managing a display like that of a ZX81.
+The ZX81 makes extensive use of the processor to generate video, to the point that about two thirds of the processor's time is spent on this purpose.
+The JA is a machine very similar to the ZX81 in many aspects, but with video generation hardware, which makes the 3.2MHz at which it operates fully available for our program.
+The idea (and design) of the ACE81 came from Pedro Gimeno as an exercise in what a ZX81 would have been like if, like the JA, it had had dedicated hardware to generate video.
+Obviously it would have been a much faster machine (or slower, depending on how we want to approach it).
+The idea is to run a ZX81 ROM on a JA, with minimal modifications to the ROM to eliminate the video generation part.
+Comparing the video memory of the ZX81 and the JA we realize that their layout is practically the same:
+
+Similarities
+- Both have 32x24 characters
+- Both are black and white
+- In both cases bit 7 of the character code is "inverse video"
+
+Differences
+- The character set of the JA is 128 elements, while in the ZX81 it is only 64 because bit 6=1 is used by the firmware to detect the end of line.
+- In ZX81 each line is terminated in a HALT (cod=76h) (33x23=759 bytes) while in JA there is no line terminator (736 bytes)
+
+Based on these premises the idea of ​​Ace81 is to make the video memory structure the same as that of the zx81 when we have activated the ZX81 mode (33 bytes per line), maintaining the standard structure (32 bytes per line) when the JA mode is selected.
+
+Apart from the differences in the display, there is a small difference in the keyboard layout that requires modifying the circuitry of this to maintain the physical order of the keys.
+
+Physically the layout of the keys of the ZX81 is identical to that of the JA, however unlike the JA, in the ZX81 the physical layout coincides with the logical one, which makes compatibility difficult when using a JA keyboard with the ZX81 ROM.
+To overcome this problem, the keyboard wiring must be modified and some additional logic must be added, which we have decided to include in a GAL to facilitate the design.
+
+As I mentioned before, the changes are limited to the two lower half-rows (half-row 0 and half-row 7).
+
+| half-row| ZX81		      | Jupiter Ace	    |
+|---------|-------------------|-----------------|
+|    0    | SHIFT   Z   X C V | SHIFT SYMB Z X C|
+|    7    | SPACE SYMB	N M B | SPACE  N   M B V|
+
+But that small change and making both modes selectable, implies important modifications in the keyboard connection logic, since it completely changes the structure of the half-rows 0 and 7.
+
+The equations that control both modes are the following:
+
+```
+/** Logic Equations **/
+
+   ZX81 = ACE81_ENABLED;
+   Jupiter = !ACE81_ENABLED;
+   
+   ROW_SS = !((Jupiter & !ROW1) # (ZX81 & !ROW8)); 
+   ROW_V = !((Jupiter & !ROW8) # (ZX81 & !ROW1)); 
+   
+   KEYB2 = !(Jupiter & !KM & !ROW8 # ZX81 & !KZ & !ROW1 );
+   KEYB3 = !(Jupiter & (!KN & !ROW8 # !KZ & !ROW1) # ZX81 & (!KM & !ROW8 # !KX & !ROW1)); 
+   KEYB4 = !(Jupiter & (!KB & !ROW8 # !KX & !ROW1) # ZX81 & (!KN & !ROW8 # !KC &!ROW1));
+   KEYB5 = !(Jupiter & !KC & !ROW1 # ZX81 & !KB & !ROW8);
+```
+
 
 
 ## ASSEMBLY
@@ -245,12 +296,26 @@ BACKPORCH = !CNT5*CNT2 from the last SYNC
 
 Components that should be changed or should not be put in or changed during the assembly
 
-- C4 – Do not put
-- U2,R4,R32,R33,R34 – Do not put if SJ1 closes (video option)
+- C4 – Do not close
+- U2,R4,R32,R33,R34 – Do not close if SJ1 closes (video option)
 - JP9 – Do not close if the Ace81 board is not in place
 - SJ2-SJ9 – Close if the Ace81 board is not in place
 - R30 & R31 – Do not put on if the Ace81 board is not in place
 - D12.. D17 – install a 0R instead the diodes if the Ace81 board is not on
+- JP17 - Close always
+- JP11 - Close always 1-2,3-4,5-6,7-8,9-10
+- JP12 - Close always 1-2,3-4,5-6,7-8,9-10
+
+- C4 – No colocar
+- U2, R4, R32, R33, R34 – No colocar si SJ1 está cerrado (opción de video)
+- JP9 – No cerrar si la placa Ace81 no está instalada
+- SJ2-SJ9 – Cerrar si la placa Ace81 no está instalada
+- cerrar todos los puentes alrededor de la BGRAM si la placa Ace81 no está instalada.
+- R30 y R31 – No colocar si la placa Ace81 no está instalada
+- D12.. D17 – Instalar un 0R en lugar de los diodos si la placa Ace81 no está instalada
+- JP17 - Cerrar siempre
+- JP11 - Cerrar siempre 1-2,3-4,5-6,7-8,9-10
+- JP12 - Cerrar siempre 1-2,3-4,5-6,7-8,9-10
 
 
 We have the following options when building the board:

@@ -312,8 +312,12 @@ Componentes que no deben ser colocados o que deben ser cambiados durante el mont
 - U2, R4, R32, R33, R34 – No colocar si SJ1 está cerrado (opción de video)
 - JP9 – No cerrar si la placa Ace81 no está instalada
 - SJ2-SJ9 – Cerrar si la placa Ace81 no está instalada
+- cerrar todos los puentes alrededor de la BGRAM si la placa Ace81 no está instalada.
 - R30 y R31 – No colocar si la placa Ace81 no está instalada
 - D12.. D17 – Instalar un 0R en lugar de los diodos si la placa Ace81 no está instalada
+- JP17 - Cerrar siempre
+- JP11 - Cerrar siempre 1-2,3-4,5-6,7-8,9-10
+- JP12 - Cerrar siempre 1-2,3-4,5-6,7-8,9-10
 
 
 Tenemos las siguientes opciones al ensamblar la placa:
