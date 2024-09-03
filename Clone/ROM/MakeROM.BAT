@@ -1,1 +1,1 @@
-copy /b ace.rom+testrom.bin+ace.rom+testrom.bin+ace81.rom+testrom.bin+ace81.rom+testrom.bin MercuryAce.bin
+copy /b ace.rom+testrom.rom+ace.rom+testrom.rom+ace81.rom+testrom.rom+ace81.rom+testrom.rom MercuryAce.bin
