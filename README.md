@@ -365,12 +365,28 @@ Close the JP10x, JP15x, JP6 and JP8 jumpers.
 
 Close the SJ2 jumpers with a drop of tin. SJ9
 
+## ROM
+
 The clone allows to have 4 ROMs in Jupiter Ace mode and 4 ROMs in Ace81 mode, selectable from DIPSwitch S1. Pin 1 of S1 selects the mode (ON=ACE81 MODE, OFF=Jupiter ACE MODE).
 
 The addon's mode selector will automatically switch between one block of 4 ROMs or the other, while S1 will allow you to manually select any of the 4 ROMs.
 
-![S1|800](images/ROMs.png)
+In the ROM folder we can find the following files:
+- "ace.rom" - Original Jupiter Ace ROM
+- "ace81.rom" - ZX81 ROM modified by Pedro Gimeno to work with the clone together with the Ace81 Add-on
+- testrom.rom - diagnostics ROM made by Pedro Gimeno
+- MercuryAce.bin - Contains all previous files in one unique file ready to be burned in an EEPROM.
 
+| FILE      | MODE        | Z1.2 ADDR    | S1.1 | S1.2 | S1.3 |
+| -----     | ------------| -------------| -----| -----| -----|
+| ace.rom   | Jupiter Ace | 0000h..1fffh |  ON  |  ON  |  ON  |
+| test.rom  | Jupiter Ace | 2000h..3fffh |  ON  |  ON  | OFF  |
+| ace.rom   | Jupiter Ace | 4000h..5fffh |  ON  | OFF  |  ON  |
+| test.rom  | Jupiter Ace | 6000h..7fffh |  ON  | OFF  | OFF  |
+| ace81.rom | ZX81        | 8000h..9fffh | OFF  |  ON  |  ON  |
+| test.rom  | ZX81        | a000h..bfffh | OFF  |  ON  | OFF  |
+| ace81.rom | ZX81        | c000h..dfffh | OFF  | OFF  |  ON  |
+| test.rom  | ZX81        | e000h..ffffh | OFF  | OFF  | OFF  |
 
 ## PARTLIST
 

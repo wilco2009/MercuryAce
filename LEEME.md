@@ -367,11 +367,28 @@ Cierra los puentes JP10x, JP15x, JP6 y JP8.
 
 Cierra los puentes SJ2 y SJ9 con una gota de estaño.
 
+## ROM
+
 El clon permite disponer de 4 ROMs en modo Jupiter Ace y 4 ROMs en modo Ace81, seleccionables desde el DIPSwitch S1. El pin 1 de S1 selecciona el modo (ON=MODO ACE81, OFF= MODO Jupiter ACE).
 
 El selector de modo del addon cambiará automáticamente entre un bloque de 4 ROMs o el otro, mientras que S1 nos permitirá seleccionar manualmente cualquiera de las 4 ROMs.
 
-![S1|800](images/ROMs.png)
+En la carpeta ROM podemos encontrar los siguientes archivos:
+- "ace.rom" - ROM original del Jupiter ACE
+- "ace81.rom" - ROM del ZX81 modificada por Pedro Gimeno para funcionar en el clon junto con el Addon Ace81
+- testrom.rom - ROM de diagnostico del clon, creada por Pedro Gimeno
+- MercuryAce.bin - Contiene todos los archivos anteriores en un unico archivo listo para quemar una EPROM en el siguiente orden
+
+| FILE      | MODE        | Z1.2 ADDR    | S1.1 | S1.2 | S1.3 |
+| -----     | ------------| -------------| -----| -----| -----|
+| ace.rom   | Jupiter Ace | 0000h..1fffh |  ON  |  ON  |  ON  |
+| test.rom  | Jupiter Ace | 2000h..3fffh |  ON  |  ON  | OFF  |
+| ace.rom   | Jupiter Ace | 4000h..5fffh |  ON  | OFF  |  ON  |
+| test.rom  | Jupiter Ace | 6000h..7fffh |  ON  | OFF  | OFF  |
+| ace81.rom | ZX81        | 8000h..9fffh | OFF  |  ON  |  ON  |
+| test.rom  | ZX81        | a000h..bfffh | OFF  |  ON  | OFF  |
+| ace81.rom | ZX81        | c000h..dfffh | OFF  | OFF  |  ON  |
+| test.rom  | ZX81        | e000h..ffffh | OFF  | OFF  | OFF  |
 
 ## LISTADO DE COMPONENTES
 
