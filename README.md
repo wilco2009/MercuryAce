@@ -253,7 +253,7 @@ Similarities
 
 Differences
 - The character set of the JA is 128 elements, while in the ZX81 it is only 64 because bit 6=1 is used by the firmware to detect the end of line.
-- In ZX81 each line is terminated in a HALT (cod=76h) (33x23=759 bytes) while in JA there is no line terminator (736 bytes)
+- In ZX81 each line is terminated in a HALT (cod=76h) (33x24=792 bytes) while in JA there is no line terminator (768 bytes)
 
 Based on these premises the idea of ​​Ace81 is to make the video memory structure the same as that of the zx81 when we have activated the ZX81 mode (33 bytes per line), maintaining the standard structure (32 bytes per line) when the JA mode is selected.
 
