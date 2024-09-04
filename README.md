@@ -467,7 +467,9 @@ In the ROM folder we can find the following files:
 
 ## THE CASE
 
-The clone case is based on an initial design by Cees Meijer, later modified by me to fit my clone.
+The clone case is based on an initial design by Cees Meijer, modified by him under my guidance later on, and some final modifications by myself to adapt it to my clone.
+
+Many thanks to Cees for his design.
 
 The Mercury Ace plate is designed to be able to replace the plate of the original Jupiter Ace, fitting perfectly into its case.
 
