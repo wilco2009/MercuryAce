@@ -469,7 +469,9 @@ En la carpeta ROM podemos encontrar los siguientes archivos:
 
 ## LA CARCASA
 
-La carcasa del clon está basada en un diseño inicial de Cees Meijer, modificado posteriormente por mi para adaptarlo a mi clon.
+La carcasa del clon está basada en un diseño inicial de Cees Meijer, modificada por él bajo mis indicaciones posteriormente, y realizando algunas modificaciones finales por mí mismo para adaptarlo a mi clon.
+
+Muchas gracias a Cees por su diseño.
 
 La placa del Mercury Ace está diseñada para poder sustituir a la placa del Jupiter Ace original, encajando perfectamente en su carcasa.
 
