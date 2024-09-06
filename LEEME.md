@@ -7,6 +7,8 @@
 
 Un proyecto abierto tanto en hardware como en software
 
+Con el permiso de Paul Andrews, actual propietario de la marca.
+
 ![Mercury Ace|800](images/clone.jpg)
 
 ## CARACTERÍSTICAS

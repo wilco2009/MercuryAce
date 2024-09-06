@@ -6,6 +6,8 @@
 
 An open hardware and open source project 
 
+With permision of Paul Andrews, current owner of the brand.
+
 ![Mercury Ace|800](images/clone.jpg)
 
 ## FEATURES
