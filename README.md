@@ -298,27 +298,15 @@ The equations that control both modes are the following:
 
 Components that should be changed or should not be put in or changed during the assembly
 
-- C4 – Do not close
-- U2,R4,R32,R33,R34 – Do not close if SJ1 closes (video option)
-- JP9 – Do not close if the Ace81 board is not in place
-- SJ2-SJ9 – Close if the Ace81 board is not in place
-- R30 & R31 – Do not put on if the Ace81 board is not in place
+- C4 – Do not place
+- U2,R4,R32,R33,R34 – Do not place if SJ1 closes (video option)
+- JP9 – Do not place if the Ace81 board is not in place
+- SJ2-SJ9 – place if the Ace81 board is not in place
+- R30 & R31 – Do not place if the Ace81 board is not in place
 - D12.. D17 – install a 0R instead the diodes if the Ace81 board is not on
-- JP17 - Close always
-- JP11 - Close always 1-2,3-4,5-6,7-8,9-10
-- JP12 - Close always 1-2,3-4,5-6,7-8,9-10
-
-- C4 – No colocar
-- U2, R4, R32, R33, R34 – No colocar si SJ1 está cerrado (opción de video)
-- JP9 – No cerrar si la placa Ace81 no está instalada
-- SJ2-SJ9 – Cerrar si la placa Ace81 no está instalada
-- cerrar todos los puentes alrededor de la BGRAM si la placa Ace81 no está instalada.
-- R30 y R31 – No colocar si la placa Ace81 no está instalada
-- D12.. D17 – Instalar un 0R en lugar de los diodos si la placa Ace81 no está instalada
-- JP17 - Cerrar siempre
-- JP11 - Cerrar siempre 1-2,3-4,5-6,7-8,9-10
-- JP12 - Cerrar siempre 1-2,3-4,5-6,7-8,9-10
-
+- JP17 - place always
+- JP11 - place always 1-2,3-4,5-6,7-8,9-10
+- JP12 - place always 1-2,3-4,5-6,7-8,9-10
 
 We have the following options when building the board:
 
