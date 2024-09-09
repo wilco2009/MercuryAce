@@ -364,7 +364,7 @@ The addon's mode selector will automatically switch between one block of 4 ROMs 
 In the ROM folder we can find the following files:
 - "ace.rom" - Original Jupiter Ace ROM
 - "ace81.rom" - ZX81 ROM modified by Pedro Gimeno to work with the clone together with the Ace81 Add-on
-- testrom.rom - diagnostics ROM made by Pedro Gimeno
+- testrom.rom - diagnostics ROM made by Pedro Gimeno (https://codeberg.org/pgimeno/jupace-testrom)
 - MercuryAce.bin - Contains all previous files in one unique file ready to be burned in an EEPROM.
 
 | FILE      | MODE        | Z1.2 ADDR    | S1.1 | S1.2 | S1.3 |
@@ -502,6 +502,8 @@ https://es.wikipedia.org/wiki/Jupiter_Ace
 https://hackaday.io/project/165772-recreating-the-jupiter-ace
 
 http://searle.x10host.com/JupiterAce/JupiterAce.html
+
+https://codeberg.org/pgimeno/jupace-testrom
 
 ## ACKNOWLEDGEMENTS
 
