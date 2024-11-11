@@ -238,7 +238,7 @@ The display sequence starts with the pixel counter and the line counter being se
 BACKPORCH = !CNT5*CNT2 from the last SYNC
 
 
-### ACE81 ADDON
+### ACE81 ADDON (only valid until build025)
 What is the ACE81 ADDON?
 The ACE81 is a small module that plugs over the BGRAM and slightly modifies the display control hardware so that it is capable of managing a display like that of a ZX81.
 The ZX81 makes extensive use of the processor to generate video, to the point that about two thirds of the processor's time is spent on this purpose.
@@ -290,7 +290,59 @@ The equations that control both modes are the following:
    KEYB5 = !(Jupiter & !KC & !ROW1 # ZX81 & !KB & !ROW8);
 ```
 
+### Hires plus 512KB memory ADDON (valid from Build026) This addon is currently in development.
+When operational, it will have the following features: 
+- Ace81 addon included 
+- ROM page select by software 
+- High resolution 256x192 pixels 
+- 32 pages in text-mode and 8 pages in high-resolution mode.
+- 32 character sets in memory simultaneously.
+- Shadow screen (CPU can access any of the video pages regardless of which one is currently being viewed).
 
+**Write mode**		
+
+```
+	ld a,cccddddd
+	OUT ($e3),a		
+```
+```  
+	where 
+        ccc = command; 
+        ddddd = param		
+```
+
+| command |param      |description                             |
+|---------|-----------|----------------------------------------|
+| 000b	  |5 bit PAGE |BG-RAM access page from CPU             |
+| 001b	  |5 bit PAGE |BG-RAM access page from video hardware  |
+| 010b    |5 bit PAGE |CHR-RAM access page from CPU            |
+| 011b	  |5 bit PAGE |CHR-RAM access page from video hardware |
+| 100b	  |video mode |00000b = Text mode, 00001b	Hires mode |
+| 101b	  |4 bit PAGE |USER RAM PAGE                           |
+| 110b	  |0mpppb	  |(m=1 disable ace81)  ppp=ROM PAGE       |
+| 111b	  |SPARE      |                                        |
+		
+**Read mode**		
+
+```
+	ld a,ccc-----		
+	in a,(e3)		
+```
+```  
+	where 
+        ccc = command;  returns result in register A"		
+```
+
+| command |result     |description                             |
+|---------|-----------|----------------------------------------|
+| 000b    |5 bit PAGE |BG-RAM access page from CPU             |
+| 001b	  |5 bit PAGE |BG-RAM access page from video hardware  |
+| 010b	  |5 bit PAGE |CHR-RAM access page from CPU            |
+| 011b	  |5 bit PAGE |CHR-RAM access page from video hardware |
+| 100b	  |video mode |00000b = Text mode, 00001b	Hires mode |
+| 101b	  |4 bit PAGE |USER RAM PAGE                           |
+| 110b	  |0mpppb	  |(m=1 disable ace81)  ppp=ROM PAGE       |
+| 111b	  |SPARE      |                                        |
 
 ## ASSEMBLY
 
@@ -385,41 +437,42 @@ In the ROM folder we can find the following files:
  |Part	                               |Value   |Device     |Package    |Description	  |NO ACE81	     |ACE81	 |SJ1 CLOSED |SJ1 OPENED |
  | ------------------------------------| -------| ----------| ----------| ----------------| -------------| ------| ----------| ----------| 
  |K1..K41		                       |        |PUSH BUTTON|B3F-40     |OMRON	          |     Y        |  Y    |   Y       |   Y       |
- |R26,R35                              | 330R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |
- |R26	                               | 300R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
+ |R35                                  | 300R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |
+ |R26	                               | 330R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R28,R29                              | 680R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R32                                  | 200    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
  |R33                                  | 200    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
- |R34                                  | 75     |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
- |R32                                  | 200R   |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
- |R33                                  | 200R   |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
- |R34                                  | 75R    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
- |R8,R10,R24,R27,R39                   | 10K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
+ |R34                                  | 75    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
+ |R8,R10,R24,R25,R27,R39,R43           | 10K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R5                                   | 12K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R3                                   | 500R   |POT        |EU-B25P    | POTENTIOMETER   |	    Y		 |  Y    |   Y       |   Y       |			
  |R4                                   | 1K     |POT        |EU-B25P    | POTENTIOMETER   |	    Y		 |  Y    |   Y       |   Y       |			
- |R1,R6,R11..R23,R100..R107,R200,R207  | 1K     |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
+ |R44                                  | 1K     |POT        |EU-B25P    | POTENTIOMETER   |	    Y		 |  Y    |   Y       |   Y       |			
+ |R1,R6,R11..R23,R100..R107,R200..R207 | 1K     |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
  |R42                                  | 1K     |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
+ |R45,R46,R47                          | 470R   |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
  |R9                                   | 22K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R7                                   | 33K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R2                                   | 47K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R30,R31                              | 4K7    |RESISTOR   |0204/7     |                 |	    N		 |  Y    |   Y       |   Y       |			
  |R36..R38,R40,R41                     | 4K7    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
+ |R45..R47                             | 470R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |RN1 (alt to R36,R37,R38,R40,R41)     | 4K7    |RNET       |RN-6       | RESISTOR NET    |	    Y		 |  Y    |   Y       |   Y       |			
  |C4 (DO NOT INSTALL)                  |        |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    N		 |  N    |   N       |   N       |			
  |C10,C13..C21                         | 100nF  |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |C2                                   | 100pF  |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |C9                                   | 100uF  |CAPACITOR  |RADIAL     | POL. CAPACITOR  |	    Y		 |  Y    |   Y       |   Y       |			
  |C7,C11,C12                           | 1uF    |CAPACITOR  |RADIAL     | POL. CAPACITOR  |	    Y		 |  Y    |   Y       |   Y       |			
- |C3,C8                                | 2.2nF  |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
+ |C8                                   | 2.2nF  |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
+ |C3                                   | 2.2uF  |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |C1                                   | 30pF   |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |C22                                  | 470pF  |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |C6                                   | 47nF   |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |C5                                   | 47pF   |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
+ |C23                                  | 10pF   |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |D1..D11                              | 1N4148 |DIODE      |DO35-7     | SIGNAL DIODE    |	    Y		 |  Y    |   Y       |   Y       |			
  |D12..D17                             | 1N4148 |DIODE      |DO35-7     | SIGNAL DIODE    | REP.WITH 0R  |  Y    |           |           |			
  |U1                                   | 7805   |REGULATOR  |TO220      | 5V REGULATOR    |      Y       |  Y    |   Y       |   Y       |			
- |Z1-2                                 | 27C512 |EEPROM     |DIL28W     | 64KB x 8 BITS   |      Y       |  Y    |   Y       |   Y       |			
  |Q1                                   | 2N3904 |TRANSISTOR |TO92       | NPN             |      Y       |  Y    |   Y       |   Y       |			
  |X1                                   | 6.5MHZ |CRISTAL    |HC49U      |                 |      Y       |  Y    |   Y       |   Y       |			
  |Z0                                   | Z80A   |CPU        |DIL40      |                 |      Y       |  Y    |   Y       |   Y       |			
@@ -445,7 +498,8 @@ In the ROM folder we can find the following files:
  |U2                                   | MAX4390|           |SOT95P280  | op-amp          |              |       |   Y       |   N       |			
  |EAR,MIC,POWER	JACK                   | 3.5mm  |CONNECTOR  |PJ302M     | FEM. 3.5mm JACK |      Y       |  Y    |   Y       |   Y       |			
  |S2				                   |        |BUTTON     |B3F-31XX   | PUSH BUTTON 90º |      Y       |  Y    |   Y       |   Y       |			
- |S1				                   | DS02   |DIPSWITCH  |DS-02      | ROM SELECTOR    |      Y       |  Y    |   Y       |   Y       |			
+ |S1				                   | DS02   |DIPSWITCH  |DS-03      | ROM SELECTOR    |      Y       |  Y    |   Y       |   Y       |			
+ |JP4				                   | SPDT   |SELECTOR   |pitch 2.54 | BACKGROUND SEL. |      Y       |  Y    |   Y       |   Y       |			
 
 ### ACE81
 
@@ -454,6 +508,14 @@ In the ROM folder we can find the following files:
  |IC1,IC2,IC5	                       | 74LS283|74XX       |SOP16      |4bit bin. adder  |
  |IC3,IC4		                       | 74LS08 |74XX       |SOP14      |4xAND gates      |
 
+### HIRES
+ |Part	                               |Value     |Device     |Package    |Description	    |
+ | ------------------------------------| ---------| ----------| ----------| ----------------| 
+ |U1        	                       | XC95144XL|CPLD       |TQG100     |XILINX CPLD      |
+ |IC1        	                       | 74LS00   |74XX       |SOP14      |XILINX CPLD      |
+ |R1..R8                               | 10K      |RESISTOR   |0204/7     |RESISTOR         |
+ |R9                                   | 680R     |RESISTOR   |0204/7     |RESISTOR         |
+ |LED1                                 | YELLOW   |LED        |3MM        | ACE81 LED       | 
 
 ## THE CASE
 
@@ -461,9 +523,9 @@ The clone case is based on an initial design by Cees Meijer, modified by him und
 
 Many thanks to Cees for his design.
 
-The Mercury Ace plate is designed to be able to replace the plate of the original Jupiter Ace, fitting perfectly into its case.
+The Mercury Ace PCB is designed to be able to replace the PCB of the original Jupiter Ace, fitting perfectly into its case.
 
-In the same way, I have modified the Cees Meijer model to be as similar as possible to the original case and also be able to house both the clone plate and an original Jupiter Ace plate.
+In the same way, I have modified the Cees Meijer model to be as similar as possible to the original case and also be able to house both the clone PCB and an original Jupiter Ace PCB.
 
 The ready-to-print STL files are available in the STL folder. The case in the cover photo is printed in 9000x resin and I am very happy with the result.
 
@@ -485,7 +547,7 @@ For the keys we will need three printed copies of the file "keys (without space 
 
 ![Remaches](images/remaches_.png)
 
-The rivets needed are like the ones in the photo. We must look for them in online stores as nylon rivets reference R3100 to hold the plate to the case and R3065 for those that join the two parts of the case.
+The rivets needed are like the ones in the photo. We must look for them in online stores as nylon rivets reference R3100 to hold the PCB to the case and R3065 for those that join the two parts of the case.
 
 The case stickers are available in the Adobe Illustrator file "teclado_cuadriculado v2 (1).ai".
 

@@ -2,7 +2,7 @@
 
 [English version](README.md)
 
-[Versión en Español](LEEME.md)
+[Versión en Español](LEEME.md) _
 
 
 Un proyecto abierto tanto en hardware como en software
@@ -251,7 +251,7 @@ El puerto del teclado se decodifica con las puertas Z26B y Z26C lo que proporcio
 El chip Z14 que es un buffer triestado es el que controla el flujo de datos desde el teclado al bus de datos cuando se consulta el puerto 0xFE.
 
 
-### ACE81 ADDON
+### ACE81 ADDON (solo válido hasta Build025)
 
 ¿qué es el ACE81 ADDON?
 El ACE81 es un pqueño módulo que se pincha sobre la BGRAM y modifica ligeramente el hardware de control de la visualizacion para que sea capaz de gestionar un display como el de un ZX81.
@@ -303,6 +303,83 @@ Las ecuaciones que controlan ambos modos son las siguientes:
    KEYB4 = !(Jupiter & (!KB & !ROW8 # !KX & !ROW1) # ZX81 & (!KN & !ROW8 # !KC &!ROW1));
    KEYB5 = !(Jupiter & !KC & !ROW1 # ZX81 & !KB & !ROW8);
 ```
+
+### Hires plus 512KB memory ADDON (válido desde Build026)
+
+Este addon está actualmente en desarrollo.
+Cuando esté operativo tendrá las siguientes características:
+- Ace81 addon incluido
+- Cambio de ROM por software
+- Alta resolucion 256x192 píxeles
+- 32 páginas de video en modo texto y 8 páginas de video en alta resolucion.
+- 32 juegos de caracteres en memoria simultaneamente.
+- Shadow screen (la CPU puede acceder a cualquiera de las páginas de video independientemente de la que se está visualizando).
+
+Toda la funcionalidad del Addon se gestiona mediante el puerto E3, por un sistema de comandos.
+Todos los comandos tienen su equivalente en lectura, por lo que podremos consultar el estado en cualquier momento.
+Seguidamente se puede ver una tabla con los comandos disponibles:
+
+**Write mode**		
+
+```
+	ld a,cccddddd
+	OUT ($e3),a		
+```
+```  
+	where 
+        ccc = command; 
+        ddddd = param		
+```
+
+| command |param      |description                             |
+|---------|-----------|----------------------------------------|
+| 000b	  |5 bit PAGE |BG-RAM access page from CPU             |
+| 001b	  |5 bit PAGE |BG-RAM access page from video hardware  |
+| 010b    |5 bit PAGE |CHR-RAM access page from CPU            |
+| 011b	  |5 bit PAGE |CHR-RAM access page from video hardware |
+| 100b	  |video mode |00000b = Text mode, 00001b	Hires mode |
+| 101b	  |4 bit PAGE |USER RAM PAGE                           |
+| 110b	  |0mpppb	  |(m=1 disable ace81)  ppp=ROM PAGE       |
+| 111b	  |SPARE      |                                        |
+		
+**Read mode**		
+
+```
+	ld a,ccc-----		
+	in a,(e3)		
+```
+```  
+	where 
+        ccc = command;  returns result in register A"		
+```
+
+| command |result     |description                             |
+|---------|-----------|----------------------------------------|
+| 000b    |5 bit PAGE |BG-RAM access page from CPU             |
+| 001b	  |5 bit PAGE |BG-RAM access page from video hardware  |
+| 010b	  |5 bit PAGE |CHR-RAM access page from CPU            |
+| 011b	  |5 bit PAGE |CHR-RAM access page from video hardware |
+| 100b	  |video mode |00000b = Text mode, 00001b	Hires mode |
+| 101b	  |4 bit PAGE |USER RAM PAGE                           |
+| 110b	  |0mpppb	  |(m=1 disable ace81)  ppp=ROM PAGE       |
+| 111b	  |SPARE      |                                        |
+
+#### Funcionamiento del paginado de la RAM de video y la RAM de caracteres
+El acceso por parte de la CPU a la RAM de video y la RAM de caracteres se realiza de manera independiente del acceso por parte del hardware de video.
+
+Por ejemplo, si cambiamos a la página 1 con el comando 0 todos los accesos desde la CPU se redigiran a la página 1 de la BGRAM, pero el hardware de video seguirá mostrando la página 0.
+Lo mismo ocurre con la CHRRAM.
+
+Esta configuracion nos permitirá escrituras en background a una página que no se está mostrando y luego visualizarla de manera instantanea cambiando la página activa para el hardware con el comando 1, evitando glitches.
+
+### Funcionamiento del modo Hires
+El funcionamiento del modo hires necesita de una configuracion previa de la RAM de caracteres. Antes de pasar a modo Hires deberemos configurar el juego de caracteres de la siguiente manera:
+
+Los 4 primeros scanlines del juego de 127 caracteres activo tiene que contener 4 copias del codigo de caracter en binario y las cuatro ultimas scanlines contendran el juego de caracteres + 128.
+
+scanline |    0    |
+---------|---------|
+    0    |00000000 |
 
 ## MONTAJE
 
@@ -399,41 +476,42 @@ En la carpeta ROM podemos encontrar los siguientes archivos:
  |Part	                               |Value   |Device     |Package    |Description	  |NO ACE81	     |ACE81	 |SJ1 CLOSED |SJ1 OPENED |
  | ------------------------------------| -------| ----------| ----------| ----------------| -------------| ------| ----------| ----------| 
  |K1..K41		                       |        |PUSH BUTTON|B3F-40     |OMRON	          |     Y        |  Y    |   Y       |   Y       |
- |R26,R35                              | 330R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |
- |R26	                               | 300R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
+ |R35                                  | 300R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |
+ |R26	                               | 330R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R28,R29                              | 680R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R32                                  | 200    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
  |R33                                  | 200    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
  |R34                                  | 75    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
- |R32                                  | 200R   |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
- |R33                                  | 200R   |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
- |R34                                  | 75R    |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
- |R8,R10,R24,R27,R39                   | 10K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
+ |R8,R10,R24,R25,R27,R39,R43           | 10K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R5                                   | 12K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R3                                   | 500R   |POT        |EU-B25P    | POTENTIOMETER   |	    Y		 |  Y    |   Y       |   Y       |			
  |R4                                   | 1K     |POT        |EU-B25P    | POTENTIOMETER   |	    Y		 |  Y    |   Y       |   Y       |			
- |R1,R6,R11..R23,R100..R107,R200,R207  | 1K     |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
- |R42                                  | 1K     |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
+ |R44                                  | 1K     |POT        |EU-B25P    | POTENTIOMETER   |	    Y		 |  Y    |   Y       |   Y       |			
+ |R1,R6,R11..R23,R100..R107,R200..R207 | 1K     |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
+ |R42                                  | 1K     |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
+ |R45,R46,R47                          | 470R   |RESISTOR   |0204/7     |                 |	     		 |       |   N       |   Y       |			
  |R9                                   | 22K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R7                                   | 33K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R2                                   | 47K    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |R30,R31                              | 4K7    |RESISTOR   |0204/7     |                 |	    N		 |  Y    |   Y       |   Y       |			
  |R36..R38,R40,R41                     | 4K7    |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
+ |R45..R47                             | 470R   |RESISTOR   |0204/7     |                 |	    Y		 |  Y    |   Y       |   Y       |			
  |RN1 (alt to R36,R37,R38,R40,R41)     | 4K7    |RNET       |RN-6       | RESISTOR NET    |	    Y		 |  Y    |   Y       |   Y       |			
  |C4 (DO NOT INSTALL)                  |        |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    N		 |  N    |   N       |   N       |			
  |C10,C13..C21                         | 100nF  |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |C2                                   | 100pF  |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |C9                                   | 100uF  |CAPACITOR  |RADIAL     | POL. CAPACITOR  |	    Y		 |  Y    |   Y       |   Y       |			
  |C7,C11,C12                           | 1uF    |CAPACITOR  |RADIAL     | POL. CAPACITOR  |	    Y		 |  Y    |   Y       |   Y       |			
- |C3,C8                                | 2.2nF  |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
+ |C8                                   | 2.2nF  |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
+ |C3                                   | 2.2uF  |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |C1                                   | 30pF   |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |C22                                  | 470pF  |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |C6                                   | 47nF   |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |C5                                   | 47pF   |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
+ |C23                                  | 10pF   |CAPACITOR  |025X50     | CERAMIC  CAP.   |	    Y		 |  Y    |   Y       |   Y       |			
  |D1..D11                              | 1N4148 |DIODE      |DO35-7     | SIGNAL DIODE    |	    Y		 |  Y    |   Y       |   Y       |			
  |D12..D17                             | 1N4148 |DIODE      |DO35-7     | SIGNAL DIODE    | REP.WITH 0R  |  Y    |           |           |			
  |U1                                   | 7805   |REGULATOR  |TO220      | 5V REGULATOR    |      Y       |  Y    |   Y       |   Y       |			
- |Z1-2                                 | 27C512 |EEPROM     |DIL28W     | 64KB x 8 BITS   |      Y       |  Y    |   Y       |   Y       |			
  |Q1                                   | 2N3904 |TRANSISTOR |TO92       | NPN             |      Y       |  Y    |   Y       |   Y       |			
  |X1                                   | 6.5MHZ |CRISTAL    |HC49U      |                 |      Y       |  Y    |   Y       |   Y       |			
  |Z0                                   | Z80A   |CPU        |DIL40      |                 |      Y       |  Y    |   Y       |   Y       |			
@@ -460,6 +538,7 @@ En la carpeta ROM podemos encontrar los siguientes archivos:
  |EAR,MIC,POWER	JACK                   | 3.5mm  |CONNECTOR  |PJ302M     | FEM. 3.5mm JACK |      Y       |  Y    |   Y       |   Y       |			
  |S2				                   |        |BUTTON     |B3F-31XX   | PUSH BUTTON 90º |      Y       |  Y    |   Y       |   Y       |			
  |S1				                   | DS02   |DIPSWITCH  |DS-03      | ROM SELECTOR    |      Y       |  Y    |   Y       |   Y       |			
+ |JP4				                   | SPDT   |SELECTOR   |pitch 2.54 | BACKGROUND SEL. |      Y       |  Y    |   Y       |   Y       |			
 
 ### ACE81
 
@@ -467,7 +546,15 @@ En la carpeta ROM podemos encontrar los siguientes archivos:
  | ------------------------------------| -------| ----------| ----------| ----------------| 
  |IC1,IC2,IC5	                       | 74LS283|74XX       |SOP16      |4bit bin. adder  |
  |IC3,IC4		                       | 74LS08 |74XX       |SOP14      |4xAND gates      |
-
+ 
+### HIRES
+ |Part	                               |Value     |Device     |Package    |Description	    |
+ | ------------------------------------| ---------| ----------| ----------| ----------------| 
+ |U1        	                       | XC95144XL|CPLD       |TQG100     |XILINX CPLD      |
+ |IC1        	                       | 74LS00   |74XX       |SOP14      |XILINX CPLD      |
+ |R1..R8                               | 10K      |RESISTOR   |0204/7     |RESISTOR         |
+ |R9                                   | 680R     |RESISTOR   |0204/7     |RESISTOR         |
+ |LED1                                 | YELLOW   |LED        |3MM        | ACE81 LED       | 
 
 ## LA CARCASA
 
