@@ -306,8 +306,6 @@ Las ecuaciones que controlan ambos modos son las siguientes:
 
 ### Hires plus 512KB memory ADDON (válido desde Build026)
 
-Este addon está actualmente en desarrollo.
-Cuando esté operativo tendrá las siguientes características:
 - Ace81 addon incluido
 - Cambio de ROM por software
 - Alta resolucion 256x192 píxeles
@@ -373,13 +371,40 @@ Lo mismo ocurre con la CHRRAM.
 Esta configuracion nos permitirá escrituras en background a una página que no se está mostrando y luego visualizarla de manera instantanea cambiando la página activa para el hardware con el comando 1, evitando glitches.
 
 ### Funcionamiento del modo Hires
+El modo Hires funciona utilizando 8 páginas de texto simultáneamente, la página de BGRAM seleccionada para el hardware y las 7 siguientes.
+El espacio de direccionamiento continuará siendo de 1024 bytes (2400h..2C00h) por lo que será responsabilidad del programador cambiar de página para poder acceder a los 8KB de memoria de video.
+
+Seguidamente podemos ver un mapa de la pantalla de video en modo alta resolucion.
+
+| BG-ADDR     |Scr line|BG-PAGE  |
+|-------------|--------|---------|
+| 2400h..2C00h|  0..23 | BGPAGE+0|
+| 2400h..2C00h| 24..47 | BGPAGE+1|
+| 2400h..2C00h| 48..71 | BGPAGE+2|
+| 2400h..2C00h| 72..95 | BGPAGE+3|
+| 2400h..2C00h| 96..119| BGPAGE+4|
+| 2400h..2C00h|120..143| BGPAGE+5|
+| 2400h..2C00h|144..167| BGPAGE+6|
+| 2400h..2C00h|168..191| BGPAGE+7|
+
+
+En este modo el hardware muestra caracteres de solo un pixel de altura, por lo que la defición de los caracteres tiene que corresponder con la representacion binaria del código, de esta manera el hardware mostrará
+Como el juego de caracteres del jupiter ace es de solo 127 caracteres, para salvar esta dificultad y poder representar las 256 posibles combinaciones de pixels.
 El funcionamiento del modo hires necesita de una configuracion previa de la RAM de caracteres. Antes de pasar a modo Hires deberemos configurar el juego de caracteres de la siguiente manera:
 
-Los 4 primeros scanlines del juego de 127 caracteres activo tiene que contener 4 copias del codigo de caracter en binario y las cuatro ultimas scanlines contendran el juego de caracteres + 128.
+Los 4 primeros scanlines del juego de 128 caracteres activo (0..511) tiene que contener 4 copias del codigo de caracter en binario y las cuatro ultimas scanlines (512..1023) contendran el código de caracter + 128.
 
-scanline |    0    |
----------|---------|
-    0    |00000000 |
+scanline |    0    |    1    |    2    |.........|   127   |    
+---------|---------|---------|---------|---------|---------|
+    0    |00000000 |00000001 |00000010 |-------- |01111111 |
+    1    |00000000 |00000001 |00000010 |-------- |01111111 |
+    2    |00000000 |00000001 |00000010 |-------- |01111111 |
+    3    |00000000 |00000001 |00000010 |-------- |01111111 |
+    4    |10000000 |10000001 |10000010 |-------- |11111111 |
+    5    |10000000 |10000001 |10000010 |-------- |11111111 |
+    6    |10000000 |10000001 |10000010 |-------- |11111111 |
+    7    |10000000 |10000001 |10000010 |-------- |11111111 |
+
 
 ## MONTAJE
 
