@@ -312,6 +312,7 @@ Las ecuaciones que controlan ambos modos son las siguientes:
 - 32 páginas de video en modo texto y 8 páginas de video en alta resolucion.
 - 32 juegos de caracteres en memoria simultaneamente.
 - Shadow screen (la CPU puede acceder a cualquiera de las páginas de video independientemente de la que se está visualizando).
+- 512KB de memoria de usuario adicionales
 
 Toda la funcionalidad del Addon se gestiona mediante el puerto E3, por un sistema de comandos.
 Todos los comandos tienen su equivalente en lectura, por lo que podremos consultar el estado en cualquier momento.
