@@ -413,6 +413,10 @@ In addition to the previous change, the Hires Add-on includes an option to disab
 
 ![board|800](images/cloneboard.jpg)
 
+The Mercury Ace project is sponsored by PCBWay​. The high quality of their boards, the speed of manufacturing and shipping, and their high-tech process have greatly helped us achieve our goals.
+
+During development, to facilitate building by hobbyists, through-hole components have been used almost exclusively in the motherboard.
+
 Components that should be changed or should not be put in or changed during the assembly
 
 - C4 – Do not place
