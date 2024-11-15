@@ -4,7 +4,7 @@
 
 [Versión en Español](LEEME.md)
 
-An open hardware and open source project 
+An open hardware and open source project (this is a readonly copy of this git https://codeberg.org/wilco2009/Mercury_Ace)
 
 With permision of Paul Andrews, current owner of the brand.
 
