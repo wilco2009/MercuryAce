@@ -239,6 +239,7 @@ BACKPORCH = !CNT5*CNT2 from the last SYNC
 
 
 ### ACE81 ADDON (only valid until build025)
+![Ace81|800](images/Ace81.jpg)
 What is the ACE81 ADDON?
 The ACE81 is a small module that plugs over the BGRAM and slightly modifies the display control hardware so that it is capable of managing a display like that of a ZX81.
 The ZX81 makes extensive use of the processor to generate video, to the point that about two thirds of the processor's time is spent on this purpose.
@@ -290,25 +291,32 @@ The equations that control both modes are the following:
    KEYB5 = !(Jupiter & !KC & !ROW1 # ZX81 & !KB & !ROW8);
 ```
 
-### Hires plus 512KB memory ADDON (valid from Build026) This addon is currently in development.
-When operational, it will have the following features: 
+### Hires plus 512KB memory ADDON (valid from Build026)
+
+![HiresAddon](images/HiResAddon.jpg)
+
 - Ace81 addon included 
-- ROM page select by software 
+- ROM page selected by software 
 - High resolution 256x192 pixels 
-- 32 pages in text-mode and 8 pages in high-resolution mode.
+- 32 pages in text-mode and 5 pages in high-resolution mode.
 - 32 character sets in memory simultaneously.
 - Shadow screen (CPU can access any of the video pages regardless of which one is currently being viewed).
+- Extra 512KB of User RAM plus the internal 16KB
+
+All the functionality of the Addon is managed via port E3, through a command system. 
+
+Each command has its read equivalent, allowing us to check the status at any time. Below is a table with the available commands:
 
 **Write mode**		
 
 ```
 	ld a,cccddddd
-	OUT ($e3),a		
+	OUT ($e3),a
 ```
 ```  
 	where 
-        ccc = command; 
-        ddddd = param		
+        ccc = command;
+        ddddd = param
 ```
 
 | command |param      |description                             |
@@ -317,16 +325,16 @@ When operational, it will have the following features:
 | 001b	  |5 bit PAGE |BG-RAM access page from video hardware  |
 | 010b    |5 bit PAGE |CHR-RAM access page from CPU            |
 | 011b	  |5 bit PAGE |CHR-RAM access page from video hardware |
-| 100b	  |video mode |00000b = Text mode, 00001b	Hires mode |
+| 100b	  |video mode |00000b = Text mode, 00001b = Hires mode |
 | 101b	  |4 bit PAGE |USER RAM PAGE                           |
-| 110b	  |0mpppb	  |(m=1 disable ace81)  ppp=ROM PAGE       |
+| 110b	  |0mppp      |(m=1 disable ace81)  ppp=ROM PAGE       |
 | 111b	  |SPARE      |                                        |
-		
+
 **Read mode**		
 
 ```
 	ld a,ccc-----		
-	in a,(e3)		
+	in a,($e3)		
 ```
 ```  
 	where 
@@ -339,10 +347,67 @@ When operational, it will have the following features:
 | 001b	  |5 bit PAGE |BG-RAM access page from video hardware  |
 | 010b	  |5 bit PAGE |CHR-RAM access page from CPU            |
 | 011b	  |5 bit PAGE |CHR-RAM access page from video hardware |
-| 100b	  |video mode |00000b = Text mode, 00001b	Hires mode |
+| 100b	  |video mode |00000b = Text mode, 00001b = Hires mode |
 | 101b	  |4 bit PAGE |USER RAM PAGE                           |
-| 110b	  |0mpppb	  |(m=1 disable ace81)  ppp=ROM PAGE       |
+| 110b	  |0mppp      |(m=1 disable ace81)  ppp=ROM PAGE       |
 | 111b	  |SPARE      |                                        |
+
+### Operation of Video RAM and Character RAM Paging
+
+The video and character RAM pages displayed are independently selectable from the video and character RAM pages accessed by the CPU.
+
+For example, if we switch to page 1 with command 0, all CPU accesses will be redirected to page 1 of the BGRAM, but the video hardware will continue displaying page 0. The same applies to CHRRAM.
+
+This configuration allows us to write in the background to a page that isn’t being displayed and then visualize it instantly by switching the active page for the hardware with command 1, avoiding glitches.
+
+### Operation of Hires Mode
+
+The Hires mode operates using six pages of text simultaneously: the BGRAM page selected for the hardware and the following five pages. The addressing space will continue to be 1024 bytes (2400h..27FFh), so it will be the programmer's responsibility to switch pages to access the 6KB of video memory.
+
+In high-resolution mode, the page shift command (111b) comes into play; this command allows us to specify an offset, in number of scanlines, to the origin address of the BG-RAM page specified with the 001b command.
+
+The final address of the page (within the RAM chip) from which the hardware will begin displaying is calculated with the following formula: position = 1024BG-PAGE+32*SUBLINE.
+
+This command can be very useful for implementing vertical scrolling by hardware.Below is a screen map of the video in high-resolution mode.
+
+| BG-ADDR     |Scr line|BG-PAGE  |
+|-------------|--------|---------|
+| 2400h..27FFh|  0..31 | BGPAGE+0|
+| 2400h..27FFh| 32..63 | BGPAGE+1|
+| 2400h..27FFh| 64..95 | BGPAGE+2|
+| 2400h..27FFh| 96..127| BGPAGE+3|
+| 2400h..27FFh|128..159| BGPAGE+4|
+| 2400h..27FFh|160..191| BGPAGE+5|
+
+In this mode, the hardware displays characters with only one pixel of height, so the character definitions must match the binary representation of the code. The hires mode operation requires a prior configuration of character RAM. Before switching to hires mode, we must configure the character set as follows:
+
+The first 4 scanlines of the active 128-character set must contain 4 copies of the character code in binary, and the last four scanlines should contain the character code XOR 127.
+
+scanline/Addr |    0    |    8    |    16   |.........|  1016   |
+--------------|---------|---------|---------|---------|---------|
+ Addr+0       |00000000 |00000001 |00000010 |-------- |01111111 |
+ Addr+1       |00000000 |00000001 |00000010 |-------- |01111111 |
+ Addr+2       |00000000 |00000001 |00000010 |-------- |01111111 |
+ Addr+3       |00000000 |00000001 |00000010 |-------- |01111111 |
+ Addr+4       |01111111 |01111110 |01111101 |-------- |00000000 |
+ Addr+5       |01111111 |01111110 |01111101 |-------- |00000000 |
+ Addr+6       |01111111 |01111110 |01111101 |-------- |00000000 |
+ Addr+7       |01111111 |01111110 |01111101 |-------- |00000000 |
+ 
+### USER RAM PAGING
+
+The 512KB of extra RAM for the user is set up in 32KB pages that occupy the second half of the Z80's addressing space.
+
+The active page is selected using command 101b followed by the page number. Since we have 512KB of RAM, we have a total of 16 32KB pages.
+
+### SWITCHING THE ACTIVE ROM BY SOFTWARE
+Immediately after a reset, or when powering up the system, the active ROM will be the one selected by the ROM selection DIP switches. The ROM can be changed by software using command 110b followed by the ROM page. We have a total of 8 8KB ROM pages, so we need 3 bits for selection (bits 0 to 2 of register A).
+
+### ACE81 MODE
+
+Under normal conditions, ROMs 6 and 7 are reserved for ACE81 mode. This differs from the ACE81 addon, where ROMs 4, 5, 6, and 7 were reserved for this mode.
+
+In addition to the previous change, the Hires Add-on includes an option to disable this mode so that ROMs 6 and 7 become normal ROMs. To disable ACE81 mode, use the ROM selection command. Setting bit 3 of register A to 1 during the ROM selection command call will disable ACE81 mode until the next reset or until the command is used again with bit 3 set to 0.
 
 ## ASSEMBLY
 
@@ -392,8 +457,6 @@ The JED file for the GAL(Z40) is available in the GAL folder.
 Additionally, the Add-on board will have to be manufactured and connected on the pins located around the Z5-6 RAM (JP10x, JP15x, JP6 and JP8)
 
 JP9 is an alternate selector on the main board for ACE81 mode, so JP9 and the Addon selector are mutually exclusive, so only one of them should be used, leaving the other one unset.
-
-![Ace81|800](images/Ace81.jpg)
 
 This mode requires a modified ROM for its proper functioning that is included inside the ROM folder.
 
